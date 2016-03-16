@@ -1,0 +1,31 @@
+{
+  "name": "react-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "dependencies": {
+    "babel-preset-react": "^6.5.0",
+    "css-loader": "^0.23.1",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "style-loader": "^0.13.0",
+    "webpack": "^1.12.14"
+  },
+  "devDependencies": {
+    "babel-core": "^6.7.2",
+    "babel-loader": "^6.2.4",
+    "copy-webpack-plugin": "^1.1.1",
+    "node-sass": "^3.4.2",
+    "sass-loader": "^3.2.0",
+    "webpack-dev-server": "^1.14.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --progress --colors",
+    "watch": "webpack --progress --colors --watch",
+    "dev": "webpack-dev-server --progress --colors --watch --host 127.0.0.1"
+  },
+  "keywords": [],
+  "author": "mygoare@gmail.com",
+  "license": "MIT"
+}
