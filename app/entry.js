@@ -1,3 +1,4 @@
 import './main.js'
 
-import './style.scss'
+import './main.css'
+import './style.css'
