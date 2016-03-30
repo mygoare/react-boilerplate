@@ -18,21 +18,16 @@ var Cropper = React.createClass({
             }
         }
     },
-    componentWillMount: function()
+    _built: function()
     {
-        this.pubsubCrop = PubSub.subscribe('cropIt', function(topic, msg){
-            let base64 = this.refs.cropper.getCroppedCanvas().toDataURL();
-
-            this.props.parentCallback(base64);
-
-
-        }.bind(this))
+        let base64 = this.refs.cropper.getCroppedCanvas().toDataURL();
+        this.props.parentCallback(base64);
     },
-    componentWillUnmount: function()
+    _cropend: function()
     {
-        PubSub.unsubscribe(this.pubsubCrop)
+        let base64 = this.refs.cropper.getCroppedCanvas().toDataURL();
+        this.props.parentCallback(base64);
     },
-
     render: function()
     {
         return (
@@ -44,6 +39,8 @@ var Cropper = React.createClass({
                 // Cropper js options
                 aspectRatio={1/1}
                 guides={true}
+                built={this._built}
+                cropend={this._cropend}
             />
         )
     }
@@ -113,6 +110,7 @@ var FileZone = React.createClass({
         return (
             <label style={{width: 400, height: 300, backgroundColor: '#eee', border: '1px solid #ccc', display: 'inline-block'}} onDragOver={this.handleDragOver} onDragLeave={this.handleDragLeave} onDrop={this.handleDrop}>
                 <input type="file" style={{visibility: 'hidden'}} onChange={this.handleChange} />
+                <div>Click or drag & drop your file here</div>
             </label>
         )
     }
@@ -128,9 +126,26 @@ var ImgCropper = React.createClass({
             avatarSrc: null
         }
     },
+    // componentWillMount: function()
+    // {
+    //     this.pubsubCrop = PubSub.subscribe('cropIt', function(topic, msg){
+    //         let base64 = this.refs.cropper.getCroppedCanvas().toDataURL();
+    //
+    //         this.props.parentCallback(base64);
+    //
+    //
+    //     }.bind(this))
+    // },
+    // componentWillUnmount: function()
+    // {
+    //     PubSub.unsubscribe(this.pubsubCrop)
+    // },
     doCrop: function()
     {
-        PubSub.publish('cropIt')
+        // PubSub.publish('cropIt')
+
+        console.log(this.state.avatarSrc);
+        // send the base64 to avatar server
     },
     setSrc: function(src)
     {
@@ -145,9 +160,9 @@ var ImgCropper = React.createClass({
         return (
             <div>
                 <FileZone sendFileBase64={this.setSrc} />
-                <Img src={this.state.avatarSrc} />
                 <hr />
                 <Cropper parentCallback={this.setAvatar} src={this.state.src} />
+                <Img src={this.state.avatarSrc} />
                 <Button type="button" onClick={this.doCrop} value='set your new avatar' />
             </div>
         )
