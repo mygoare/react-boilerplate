@@ -2,6 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import PubSub from 'pubsub-js'
 
+import 'normalize.css'
+
 import {Hello} from './components/Hello'
 import {Button} from './components/Button'
 import {Img} from './components/Image'
