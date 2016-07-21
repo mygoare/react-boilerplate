@@ -48,9 +48,9 @@
 	
 	__webpack_require__(1);
 	
-	__webpack_require__(190);
-	
 	__webpack_require__(192);
+	
+	__webpack_require__(194);
 
 /***/ },
 /* 1 */
@@ -78,7 +78,7 @@
 	
 	var _RangeSlider = __webpack_require__(177);
 	
-	var _reactCropperjs = __webpack_require__(186);
+	var _reactCropperjs = __webpack_require__(188);
 	
 	var _reactCropperjs2 = _interopRequireDefault(_reactCropperjs);
 	
@@ -297,6 +297,22 @@
 	        height: 60,
 	        orientation: 'vertical',
 	        theme: 'metal-slider-2' }),
+	    _react2.default.createElement(
+	        'p',
+	        null,
+	        'metal slider 3:'
+	    ),
+	    _react2.default.createElement(_RangeSlider.SuperSlider, {
+	        value: 15,
+	        theme: 'metal-slider-3' }),
+	    _react2.default.createElement(
+	        'div',
+	        { style: { height: '100px' } },
+	        _react2.default.createElement(_RangeSlider.SuperSlider, {
+	            value: 75,
+	            orientation: 'vertical',
+	            theme: 'metal-slider-3' })
+	    ),
 	    _react2.default.createElement(_Button.Button, { type: 'button', value: 'Hello world' }),
 	    _react2.default.createElement(_Image.Img, { src: 'https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png' }),
 	    _react2.default.createElement(
@@ -21730,7 +21746,7 @@
 	  }
 	});
 	
-	var _superSlider = __webpack_require__(185);
+	var _superSlider = __webpack_require__(187);
 	
 	Object.defineProperty(exports, 'SuperSlider', {
 	  enumerable: true,
@@ -22130,7 +22146,7 @@
 	var content = __webpack_require__(182);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(184)(content, {});
+	var update = __webpack_require__(186)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -22155,7 +22171,7 @@
 	
 	
 	// module
-	exports.push([module.id, "*,\n*:before,\n*:after {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box; }\n\nbody {\n  margin: 0;\n  padding: 0;\n  font-family: Helvetica, sans-serif;\n  font-weight: 400;\n  font-size: 14px;\n  line-height: 24px;\n  color: #333333;\n  overflow-x: hidden; }\n\n.superslider-wrapper {\n  width: 100%;\n  height: 100%;\n  position: relative;\n  z-index: 10000; }\n  .superslider-wrapper:after {\n    content: \" \";\n    /* Older browser do not support empty content */\n    visibility: hidden;\n    display: block;\n    height: 0;\n    clear: both; }\n\n/**\ntheme templates\n\n.theme-name\n{\n\t&.rangeslider-horizontal {\n\t   .rangeslider__fill {\n\t   }\n\t   .rangeslider__handle {\n\t\t\t&:active{\n\t\t\t}\n\t   }\n\t}\n\n\t&.rangeslider-vertical {\n\t   .rangeslider__fill {\n\t   }\n\t   .rangeslider__handle {\n\t\t   &:active {\n\t\t   }\n\t   }\n\t}\n}\n*/\n/**\n * Rangeslider\n */\n.rangeslider {\n  position: relative; }\n  .rangeslider.rangeslider-horizontal .rangeslider__fill {\n    height: 100%;\n    top: 0; }\n  .rangeslider.rangeslider-vertical {\n    height: 100%;\n    min-height: 60px; }\n    .rangeslider.rangeslider-vertical .rangeslider__fill {\n      width: 100%;\n      bottom: 0; }\n  .rangeslider .rangeslider__fill, .rangeslider .rangeslider__handle {\n    position: absolute; }\n  .rangeslider, .rangeslider .rangeslider__fill {\n    display: block;\n    box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.3); }\n  .rangeslider .rangeslider__handle {\n    cursor: pointer;\n    display: inline-block;\n    position: absolute; }\n\n.default.rangeslider-horizontal {\n  height: 20px;\n  border-radius: 10px; }\n  .default.rangeslider-horizontal .rangeslider__fill {\n    height: 100%;\n    background: #27ae60;\n    border-radius: 10px;\n    top: 0; }\n  .default.rangeslider-horizontal .rangeslider__handle {\n    background: #eee;\n    border: 1px solid #ccc;\n    width: 40px;\n    height: 40px;\n    border-radius: 40px;\n    top: -10px; }\n\n.default.rangeslider-vertical {\n  margin: 0px auto;\n  width: 10px;\n  background: none; }\n  .default.rangeslider-vertical .rangeslider__fill {\n    width: 100%;\n    background: #27ae60;\n    box-shadow: none;\n    bottom: 0; }\n  .default.rangeslider-vertical .rangeslider__handle {\n    background: #eee;\n    border: 1px solid #ccc;\n    width: 30px;\n    height: 10px;\n    left: -10px; }\n    .default.rangeslider-vertical .rangeslider__handle:active {\n      box-shadow: none; }\n\n.metal-slider-1.rangeslider-horizontal {\n  margin: 5px 0;\n  height: 14px;\n  border-radius: 10px;\n  background-color: #bdbdbd; }\n  .metal-slider-1.rangeslider-horizontal .rangeslider__fill {\n    background: linear-gradient(to top, #a4a8da 0%, #2648a2 100%);\n    border-radius: 10px; }\n  .metal-slider-1.rangeslider-horizontal .rangeslider__handle {\n    width: 22px;\n    height: 24px;\n    background: url(https://ooo.0o0.ooo/2016/07/18/578caa762953e.png) no-repeat;\n    background-size: cover;\n    top: -5px; }\n\n.metal-slider-1.rangeslider-vertical {\n  margin: 0 4px;\n  width: 14px;\n  border-radius: 10px;\n  background-color: #bdbdbd; }\n  .metal-slider-1.rangeslider-vertical .rangeslider__fill {\n    background: linear-gradient(to top, #a4a8da 0%, #2648a2 100%);\n    border-radius: 10px; }\n  .metal-slider-1.rangeslider-vertical .rangeslider__handle {\n    width: 22px;\n    height: 24px;\n    background: url(https://ooo.0o0.ooo/2016/07/18/578caa762953e.png) no-repeat;\n    background-size: cover;\n    border: none;\n    left: -4px; }\n\n.metal-slider-2.rangeslider-horizontal {\n  margin: 5px 0;\n  height: 10px;\n  background-color: #565656;\n  border-radius: 8px; }\n  .metal-slider-2.rangeslider-horizontal .rangeslider__fill {\n    background: linear-gradient(to top, #3abfd5 0%, #ace8f1 100%);\n    border-radius: 8px; }\n  .metal-slider-2.rangeslider-horizontal .rangeslider__handle {\n    width: 18px;\n    height: 20px;\n    background: url(https://ooo.0o0.ooo/2016/07/18/578c968d5ac35.png) no-repeat;\n    background-size: cover;\n    top: -5px; }\n\n.metal-slider-2.rangeslider-vertical {\n  margin: 0 4px;\n  width: 10px;\n  background: none;\n  background-color: #565656;\n  border-radius: 8px; }\n  .metal-slider-2.rangeslider-vertical .rangeslider__fill {\n    background: linear-gradient(to top, #3abfd5 0%, #ace8f1 100%);\n    border-radius: 8px; }\n  .metal-slider-2.rangeslider-vertical .rangeslider__handle {\n    width: 18px;\n    height: 20px;\n    background: url(https://ooo.0o0.ooo/2016/07/18/578c968d5ac35.png) no-repeat;\n    background-size: cover;\n    left: -4px; }\n", ""]);
+	exports.push([module.id, "*,\n*:before,\n*:after {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box; }\n\nbody {\n  margin: 0;\n  padding: 0;\n  font-family: Helvetica, sans-serif;\n  font-weight: 400;\n  font-size: 14px;\n  line-height: 24px;\n  color: #333333;\n  overflow-x: hidden; }\n\n.superslider-wrapper {\n  width: 100%;\n  height: 100%;\n  position: relative;\n  z-index: 10000; }\n  .superslider-wrapper:after {\n    content: \" \";\n    /* Older browser do not support empty content */\n    visibility: hidden;\n    display: block;\n    height: 0;\n    clear: both; }\n\n/**\ntheme templates\n\n.theme-name\n{\n\t&.rangeslider-horizontal {\n\t   .rangeslider__fill {\n\t   }\n\t   .rangeslider__handle {\n\t\t\t&:active{\n\t\t\t}\n\t   }\n\t}\n\n\t&.rangeslider-vertical {\n\t   .rangeslider__fill {\n\t   }\n\t   .rangeslider__handle {\n\t\t   &:active {\n\t\t   }\n\t   }\n\t}\n}\n*/\n/**\n * Rangeslider\n */\n.rangeslider {\n  position: relative; }\n  .rangeslider.rangeslider-vertical {\n    height: 100%;\n    min-height: 60px; }\n  .rangeslider .rangeslider__fill, .rangeslider .rangeslider__handle {\n    position: absolute; }\n  .rangeslider, .rangeslider .rangeslider__fill {\n    display: block;\n    box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.3); }\n  .rangeslider .rangeslider__handle {\n    cursor: pointer;\n    display: inline-block;\n    position: absolute; }\n\n.default.rangeslider-horizontal {\n  height: 20px;\n  border-radius: 10px; }\n  .default.rangeslider-horizontal .rangeslider__fill {\n    height: 100%;\n    background: #27ae60;\n    border-radius: 10px;\n    top: 0; }\n  .default.rangeslider-horizontal .rangeslider__handle {\n    background: #eee;\n    border: 1px solid #ccc;\n    width: 40px;\n    height: 40px;\n    border-radius: 40px;\n    top: -10px; }\n\n.default.rangeslider-vertical {\n  margin: 0px auto;\n  width: 10px;\n  background: none; }\n  .default.rangeslider-vertical .rangeslider__fill {\n    width: 100%;\n    background: #27ae60;\n    box-shadow: none;\n    bottom: 0; }\n  .default.rangeslider-vertical .rangeslider__handle {\n    background: #eee;\n    border: 1px solid #ccc;\n    width: 30px;\n    height: 10px;\n    left: -10px; }\n    .default.rangeslider-vertical .rangeslider__handle:active {\n      box-shadow: none; }\n\n.metal-slider-1:before {\n  content: '';\n  top: 3px;\n  left: 3px;\n  bottom: 3px;\n  right: 3px;\n  position: absolute;\n  border-radius: 8px;\n  border: 1px solid #414042;\n  background: transparent;\n  z-index: 1; }\n\n.metal-slider-1.rangeslider-horizontal {\n  margin: 5px 0;\n  height: 18px;\n  border-radius: 10px;\n  background-color: #bdbdbd;\n  box-shadow: inset 0 1px 2px 0 #757575, inset 0 -1px 2px #e0e0e0; }\n  .metal-slider-1.rangeslider-horizontal .rangeslider__fill {\n    background: linear-gradient(to top, #a4a8da 0%, #2648a2 100%);\n    border-radius: 10px;\n    top: 3px;\n    bottom: 3px;\n    left: 3px;\n    right: 3px; }\n  .metal-slider-1.rangeslider-horizontal .rangeslider__handle {\n    width: 22px;\n    height: 24px;\n    background: url(" + __webpack_require__(184) + ") no-repeat;\n    background-size: cover;\n    top: -3px;\n    z-index: 2; }\n\n.metal-slider-1.rangeslider-vertical {\n  margin: 0 4px;\n  width: 18px;\n  border-radius: 10px;\n  background-color: #bdbdbd; }\n  .metal-slider-1.rangeslider-vertical .rangeslider__fill {\n    background: linear-gradient(to top, #a4a8da 0%, #2648a2 100%);\n    border-radius: 10px;\n    height: 100%;\n    bottom: 3px;\n    left: 3px;\n    right: 3px; }\n  .metal-slider-1.rangeslider-vertical .rangeslider__handle {\n    width: 22px;\n    height: 24px;\n    background: url(" + __webpack_require__(184) + ") no-repeat;\n    background-size: cover;\n    border: none;\n    z-index: 2;\n    left: -2px; }\n\n.metal-slider-2.rangeslider-horizontal {\n  margin: 5px 0;\n  height: 10px;\n  background-color: #616161;\n  border-radius: 4px; }\n  .metal-slider-2.rangeslider-horizontal .rangeslider__fill {\n    background: linear-gradient(to bottom, #48def9 0%, #38b2c7 48%, #a4f2fe 50%, #38b2c7 52%, #38b2c7 100%);\n    border-radius: 4px;\n    height: 100%; }\n  .metal-slider-2.rangeslider-horizontal .rangeslider__handle {\n    width: 18px;\n    height: 20px;\n    background: url(" + __webpack_require__(185) + ") no-repeat;\n    background-size: cover;\n    top: -5px; }\n\n.metal-slider-2.rangeslider-vertical {\n  margin: 0 4px;\n  width: 10px;\n  background: none;\n  background-color: #616161;\n  border-radius: 4px; }\n  .metal-slider-2.rangeslider-vertical .rangeslider__fill {\n    background: linear-gradient(to right, #48def9 0%, #38b2c7 48%, #a4f2fe 50%, #38b2c7 52%, #38b2c7 100%);\n    border-radius: 4px;\n    width: 100%;\n    bottom: 0; }\n  .metal-slider-2.rangeslider-vertical .rangeslider__handle {\n    width: 18px;\n    height: 20px;\n    background: url(" + __webpack_require__(185) + ") no-repeat;\n    background-size: cover;\n    left: -4px; }\n\n.metal-slider-3 {\n  background-color: #bdbdbd;\n  border-radius: 8px; }\n  .metal-slider-3.rangeslider-horizontal {\n    margin: 5px 0;\n    height: 10px;\n    box-shadow: inset -1px 1px 1px 1px #5d5d5d; }\n    .metal-slider-3.rangeslider-horizontal .rangeslider__fill {\n      box-shadow: inset -1px 1px 1px 1px #4aa049;\n      background-color: #87c886;\n      border-radius: 4px;\n      height: 100%; }\n    .metal-slider-3.rangeslider-horizontal .rangeslider__handle {\n      width: 18px;\n      height: 20px;\n      background: url(" + __webpack_require__(185) + ") no-repeat;\n      background-size: cover;\n      top: -5px; }\n  .metal-slider-3.rangeslider-vertical {\n    margin: 0 4px;\n    width: 10px;\n    box-shadow: inset -1px 1px 1px 1px #5d5d5d; }\n    .metal-slider-3.rangeslider-vertical .rangeslider__fill {\n      box-shadow: inset -1px 1px 1px 1px #4aa049;\n      background-color: #87c886;\n      border-radius: 4px;\n      width: 100%;\n      bottom: 0; }\n    .metal-slider-3.rangeslider-vertical .rangeslider__handle {\n      width: 18px;\n      height: 20px;\n      background: url(" + __webpack_require__(185) + ") no-repeat;\n      background-size: cover;\n      left: -4px; }\n", ""]);
 	
 	// exports
 
@@ -22218,6 +22234,18 @@
 
 /***/ },
 /* 184 */
+/***/ function(module, exports) {
+
+	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAYCAYAAAD+vg1LAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABatJREFUeNp8VVtMFGcYPTs7ewd2WXYBlTsWtFVsK7SKUtuAJbGJ2pgWxabtiw99I/G5SV/aNxPfiuGhTUXqpcHLg60XEEttYpMmVo1ICwiCwnJZFnZ3Ztmdne35fyrpBftnJzOzM//5vu9853xjyWQyWG0tRqMv89TG540WRSkS/4lXzbQhLiesVmsPz1/nZGf3rbbf8m/gqVCoLJUyOsfGH++4+v0P8Hq9SCaT2FSzBQbP9+7+BotFQTKVxO7mZpSXld2y2dQPCgsKRp8LPDwysj8Umj7VefKkO8uThbcaG1FSVobsnGz4/goQmppGKBTCfHgOt37qh2mYOHj4kBYMBg5XVlRceIalPLu4d//+/qGh4fMnvmx3B/MLUFlVBRFyZmZGPjdNE2nDgJkxkVjSoSUSWF+1EYXr1uJEe7v7wYOB8wLjH8C3b/8iyu/q6+1F/c4GBIL53MzsQtNQrVZo0fgywYqC2dk5LC7EYBhpBjPgZmUvvlSDi90XMPl06pTAWgEmX52DDwdc+w4cQN3rryHL42GJaejMjE2EK8vDd1LIMOsEMzUzaQKnkDZFvAxUVUVJeTl6e3vd0VisU2Baa2vr3vT5cj+NxzXUN+xEdlaWBMkL5CEcDiMei0HXNLicLqRIxdzcHGKxOBJ6AmkqxEynZem+XD/fi8Pj9pSMjo5eVDRN+3hwcBCvbt0KPa7DolhQV1uLurpaVJHnFNMS5RsMJlY0GpPXaZOAZgZ2uwM2u13el5RV4OnkJIjZpiaTqSaLxcKyE1BtNqiGCs3U4GSG1dXVzMjE+OPHGPxjCOsrK2SWKUELKbDZbdSVBU6Ci71enw/JhCYqa1TJ2TqDJY6PjSOHDwSHVjLvdnskeH5BPmnxU7/3sbC4SNBlZTiZpcrD6XRSPRkEAwEZIDI7IxRUpMb1ONxOD2U1y5JnqdXlkgUlCo1gVa0yQ1HuxMSElJ0IqtpU+L0+WKwWCM3nMikb3wUb+2h0FGo0EkPKZTCbqCxPoaREBbCIn0UCiqzFvdB19QuVbHA27A47XC4XObaxQoWJKEzEIpsteqDo5ISWXOFtMbooZSZcJkoMBAMS1J+bKyUYY4MNoQZm7nQ6YLct02Enx+Ks65poHlRKaYYvBZcSSzIjscnucMgjQMklEjp27XqDNDzhBh0jIyOSstKSIkQWFmggFW6XE7Q0OJjgcrvxaORRRmGmPyuKlVxBNkWIPcBGiGaI1dz8thw6HprG683hjAgjshjBnTt3qZYJScMSqwuH5xGJLMjKh4eH0ur0zPRnVpu6r7p6g3zg8+dKuxrU5e6mRjbKDSFHaVPRUAIthCO0sgdzDCKaLLheu6YQCd4PDAxgPjL/u3LmzOk7Y6NjURu5CrJJOZxi/jw/QZvkyBSgosQsOjKPVTgcTmh0XVQ6Upfguq7LiafRed3d3aQleFrOipqaTV9du3oFpcVFskH127chJydHKkK4SwwgMeB12t7r8yKPgZcIJpqkxTRWGpHNO3f2O0GD2dDQ0LEyj5uadk++srW28NChg+DsQC4psak2uojq4LCJMUPRwJnQDEZGR2jtqJTlGlJQUlyMnuvX0NNzHX6//9sbN260rszjlpb3v/ixrzd16cJFdppfCFo8JSYYLS26H2O2aY5JgwYQtAg7b9xQLWV47uw5EExINNTa2vrJf74gR48e/ebKlSutmzdvsb7X0oId9duhMIiwsU5exZFKLjFITE64m303wXGLhzw4Ro29e/duO3bs2K+rfvMI3n758uWP7Ha7s7ikFKX8NBUECxjAKjUujDPLefD0yRPKbUxS4nA4Qnv27HnnGeiqwGJ1dHS0dHV1fT4+Pl5O8yh4zqL0zOLi4jOi/CNHjiz871f67+v48ePv9vf3f8jhsy0ej2en02kqz5qmWQaKioouie63tbVNrbb3TwEGAIIcFAANZM9nAAAAAElFTkSuQmCC"
+
+/***/ },
+/* 185 */
+/***/ function(module, exports) {
+
+	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAUCAYAAACAl21KAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAy5JREFUeNp8VE1LG1EUvZnMTCaTr9EiRqkpaUBwof9ApK5qV+66KLVu2pW/oIv+g+6LIBWhuGihboqbbjRusqgULI1CxSaSD5uik8/J50zveTohBOuDSybz7j3v3HPuG4/jODS0DI7VZrP5yrKsmUajIV7quk5+vz+tado6/93kMAeLPENAy6Zpfshks3q73abhQzweD6mqSg9isYZhGM/41Y67Jw3krebz+c+5fF63bZv+t3q9HiEHuagZBlq+urp63+l0SJZl8nq94nTEIBsE9pCDXNSgVgAxfYPb2OYs8mka+Xw+kYiiwdbcZ+yhPZXz8Aa1wJCZ6qokSRoLSfINE7TW7XbF7yCYC+LnAyE+wFALDLlWr6+1mk1iN8jPm6DulSQBAPrQxG0NbEPBIAVDIfFssaMVrmXANblcLifYapJrNVIUhQKBAIU4EafbDMIHCTCdGd8bHaVIJEIYibJpUqvVog4zZxIJrq+hz76Y5UpFgIDheDRKTqFADcui+1NThNzfmUyfKVi7zD3fDg8dumO5TkGzu5ZUZQa3WQzxo+NRioQjZDMInsPhcN/RwdEAhlwoFtMRw5hxAXyqj4IsKCgXCnmOgmijym3FYjEBWK6Uqd1qU7fXFXnZ8/OqxIKtw2bYyWNPoywoei6V/mDgqMn68J2jOoteKv2larVKRsSgkZERYQyAWPhfmOzNXC7XAQDYQFAECqGLxCwxO3i2rAY7VheuwWGAZTIZxyvLO9KLlRWTWb3LZrLUarf64d43gCiKKrQRDjEg9jEyqEmlUucP4/FP4q49WVp6fXCQTBULxWtbbad/02VZEafLHJLkxV0RORcXF7S1tVUL6PrX+fn5tHTzranNzc293d3dTZ8cn2A6RCGugObXroPnSlEVcb+O08e0sbFhOY79nUHecL0juxYuLCx85Ckf29/ff849z05PT+uTk5Me12a0xVrSj6Mjm500JyYmfi4uLr7kutxtHzba29tbTiaTT8/Ozmb5IzfGU+9nvfhuSja3arGzpXg8ngITF+RWICx2RWWwx6enp48uLy+jPA4a69RkZw8TicQXaIJ2Bmv+CTAA2CXcsKIsGrwAAAAASUVORK5CYII="
+
+/***/ },
+/* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -22469,7 +22497,7 @@
 
 
 /***/ },
-/* 185 */
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22555,7 +22583,7 @@
 	exports.SuperSlider = SuperSlider;
 
 /***/ },
-/* 186 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22572,13 +22600,13 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _cropperjs = __webpack_require__(187);
+	var _cropperjs = __webpack_require__(189);
 	
 	var _cropperjs2 = _interopRequireDefault(_cropperjs);
 	
-	__webpack_require__(187);
+	__webpack_require__(189);
 	
-	__webpack_require__(188);
+	__webpack_require__(190);
 	
 	var CropperJS = _react2['default'].createClass({
 	   displayName: 'CropperJS',
@@ -22762,7 +22790,7 @@
 
 
 /***/ },
-/* 187 */
+/* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -26185,13 +26213,6 @@
 
 
 /***/ },
-/* 188 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 189 */,
 /* 190 */
 /***/ function(module, exports) {
 
@@ -26200,6 +26221,13 @@
 /***/ },
 /* 191 */,
 /* 192 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 193 */,
+/* 194 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
