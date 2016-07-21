@@ -129,11 +129,11 @@ theme templates
         right: 3px;
         position: absolute;
         border-radius: 8px;
-        border: 1px solid #888;
+        border: 1px solid #656565;
         background: transparent;
         z-index: 1;
     }
-    background-color: #dadada;
+    background-color: #afafaf;
   &.rangeslider-horizontal
   {
     margin: 5px 0;
@@ -169,7 +169,7 @@ theme templates
     margin: 0 4px;
     width: 18px;
     border-radius: 10px;
-    box-shadow: inset 1px 0 2px 1px #777777, inset -1px 0 2px 1px #d0d0d0;
+    box-shadow: inset 0 1px 2px 1px #777777, inset 0 -1px 2px 1px #d0d0d0;
 
     .rangeslider__fill {
         background: linear-gradient(to left, #a4a8da 0%,#2648a2 100%);
@@ -207,7 +207,7 @@ theme templates
     border-radius: 4px;
 
     .rangeslider__fill {
-        box-shadow: inset 0 4px 0 0 #38def9, inset 0 -5px 0 0 #38b2c7, inset 0 -6px 0 0 #a4f2fe;
+        background-color: #38b2c7;
         border-radius: 4px;
         height: 100%;
     }
@@ -233,7 +233,7 @@ theme templates
 
 
     .rangeslider__fill {
-        box-shadow: inset 4px 0 0 0 #38def9, inset -5px 0 0 0 #38b2c7, inset -6px 0 0 0 #a4f2fe;
+        background-color: #38b2c7;
         border-radius: 4px;
         width: 100%;
         bottom: 0;
@@ -261,10 +261,10 @@ theme templates
     margin: 5px 0;
     height: 10px;
 
-    box-shadow: inset -1px 1px 1px 1px #5d5d5d;
+    box-shadow: inset 0 1px 1px 0px #5d5d5d, inset -1px 1px 1px 0px #5d5d5d;
 
     .rangeslider__fill {
-        box-shadow: inset -1px 1px 1px 1px #4aa049;
+        box-shadow: inset 0 1px 1px 1px #4aa049;
         background-color: #87c886;
         border-radius: 4px;
         height: 100%;
@@ -284,11 +284,10 @@ theme templates
   &.rangeslider-vertical {
     margin: 0 4px;
     width: 10px;
-    box-shadow: inset 1px -1px 1px 1px #5d5d5d;
-
+    box-shadow: inset 0 1px 1px 0px #5d5d5d, inset 0 -1px 1px 0px #5d5d5d;
 
     .rangeslider__fill {
-        box-shadow: inset 1px -1px 1px 1px #4aa049;
+        box-shadow: inset 0 0 1px 1px #4aa049;
         background-color: #87c886;
         border-radius: 4px;
 
