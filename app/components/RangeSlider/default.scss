@@ -66,18 +66,10 @@ theme templates
   position: relative;
 
   &.rangeslider-horizontal {
-      .rangeslider__fill {
-          height: 100%;
-          top: 0;
-      }
   }
   &.rangeslider-vertical {
     height: 100%;
     min-height: 60px;
-    .rangeslider__fill {
-        width: 100%;
-        bottom: 0;
-    }
   }
   .rangeslider__fill, .rangeslider__handle {
   	position: absolute;
@@ -148,25 +140,44 @@ theme templates
 
 .metal-slider-1
 {
+    &:before {
+        content: '';
+        top: 3px;
+        left: 3px;
+        bottom: 3px;
+        right: 3px;
+        position: absolute;
+        border-radius: 8px;
+        border: 1px solid #414042;
+        background: transparent;
+        z-index: 1;
+    }
   &.rangeslider-horizontal
   {
     margin: 5px 0;
 
-    height: 14px;
+    height: 18px;
     border-radius: 10px;
     background-color: #bdbdbd;
+    box-shadow: inset 0 1px 2px 0 #757575, inset 0 -1px 2px #e0e0e0;
 
     .rangeslider__fill {
         background: linear-gradient(to top, #a4a8da 0%,#2648a2 100%);
         border-radius: 10px;
+
+        top: 3px;
+        bottom: 3px;
+        left: 3px;
+        right: 3px;
     }
 
     .rangeslider__handle {
       width: 22px;
       height: 24px;
-      background: url(https://ooo.0o0.ooo/2016/07/18/578caa762953e.png) no-repeat;
+      background: url(./images/slider1-thumb.png) no-repeat;
       background-size: cover;
-      top: -5px;
+      top: -3px;
+      z-index: 2;
       &:active {
       }
     }
@@ -175,23 +186,29 @@ theme templates
   &.rangeslider-vertical
   {
     margin: 0 4px;
-    width: 14px;
+    width: 18px;
     border-radius: 10px;
     background-color: #bdbdbd;
 
     .rangeslider__fill {
         background: linear-gradient(to top, #a4a8da 0%,#2648a2 100%);
         border-radius: 10px;
+
+        height: 100%;
+        bottom: 3px;
+        left: 3px;
+        right: 3px;
     }
 
     .rangeslider__handle {
       width: 22px;
       height: 24px;
-      background: url(https://ooo.0o0.ooo/2016/07/18/578caa762953e.png) no-repeat;
+      background: url(./images/slider1-thumb.png) no-repeat;
       background-size: cover;
       border: none;
+      z-index: 2;
 
-      left: -4px;
+      left: -2px;
 
       &:active {
       }
@@ -205,17 +222,19 @@ theme templates
     margin: 5px 0;
     height: 10px;
 
-    background-color: #565656;
-    border-radius: 8px;
+    background-color: #616161;
+    border-radius: 4px;
 
     .rangeslider__fill {
-        background: linear-gradient(to top, #3abfd5 0%,#ace8f1 100%);
-        border-radius: 8px;
+        // background: linear-gradient(to top, #3abfd5 0%,#ace8f1 100%);
+        background: linear-gradient(to bottom, #48def9 0%,#38b2c7 48%,#a4f2fe 50%,#38b2c7 52%,#38b2c7 100%);
+        border-radius: 4px;
+        height: 100%;
     }
     .rangeslider__handle {
       width: 18px;
       height: 20px;
-      background: url(https://ooo.0o0.ooo/2016/07/18/578c968d5ac35.png) no-repeat;
+      background: url(./images/slider2-thumb.png) no-repeat;
       background-size: cover;
 
       top: -5px;
@@ -229,18 +248,77 @@ theme templates
     width: 10px;
     background: none;
 
-    background-color: #565656;
-    border-radius: 8px;
+    background-color: #616161;
+    border-radius: 4px;
 
 
     .rangeslider__fill {
-        background: linear-gradient(to top, #3abfd5 0%,#ace8f1 100%);
-        border-radius: 8px;
+        background: linear-gradient(to right, #48def9 0%,#38b2c7 48%,#a4f2fe 50%,#38b2c7 52%,#38b2c7 100%);
+        border-radius: 4px;
+        width: 100%;
+        bottom: 0;
     }
     .rangeslider__handle {
       width: 18px;
       height: 20px;
-      background: url(https://ooo.0o0.ooo/2016/07/18/578c968d5ac35.png) no-repeat;
+      background: url(./images/slider2-thumb.png) no-repeat;
+      background-size: cover;
+
+      left: -4px;
+
+      &:active {
+      }
+    }
+  }
+}
+
+.metal-slider-3
+{
+    background-color: #bdbdbd;
+    border-radius: 8px;
+
+  &.rangeslider-horizontal {
+    margin: 5px 0;
+    height: 10px;
+
+    box-shadow: inset -1px 1px 1px 1px #5d5d5d;
+
+    .rangeslider__fill {
+        box-shadow: inset -1px 1px 1px 1px #4aa049;
+        background-color: #87c886;
+        border-radius: 4px;
+        height: 100%;
+    }
+    .rangeslider__handle {
+      width: 18px;
+      height: 20px;
+      background: url(./images/slider2-thumb.png) no-repeat;
+      background-size: cover;
+
+      top: -5px;
+
+      &:active{
+      }
+    }
+  }
+  &.rangeslider-vertical {
+    margin: 0 4px;
+    width: 10px;
+    box-shadow: inset -1px 1px 1px 1px #5d5d5d;
+
+
+    .rangeslider__fill {
+        box-shadow: inset -1px 1px 1px 1px #4aa049;
+        background-color: #87c886;
+        border-radius: 4px;
+        
+        width: 100%;
+        bottom: 0;
+    }
+    .rangeslider__handle {
+      width: 18px;
+      height: 20px;
+      background: url(./images/slider2-thumb.png) no-repeat;
       background-size: cover;
 
       left: -4px;

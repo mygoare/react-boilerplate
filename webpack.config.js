@@ -16,7 +16,8 @@ module.exports = {
             {test: /\.css$/,  loader: ExtractTextPlugin.extract('style-loader', 'css-loader')},
             {test: /\.scss$/, loaders: ['style', 'css', 'sass']},
             {test: /\.less$/, loaders: ['style', 'css', 'less']},
-            {test: /\.jsx?$/, loaders: ['babel'], exclude: /(node_modules|bower_components)/}
+            {test: /\.jsx?$/, loaders: ['babel'], exclude: /(node_modules|bower_components)/},
+            { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192' }
         ]
     },
     plugins: [

@@ -223,6 +223,16 @@ ReactDOM.render(
             height={60}
             orientation='vertical'
             theme='metal-slider-2'/>
+        <p>metal slider 3:</p>
+        <SuperSlider
+            value={15}
+            theme='metal-slider-3'/>
+        <div style={{height: '100px'}}>
+            <SuperSlider
+                value={75}
+                orientation='vertical'
+                theme='metal-slider-3'/>
+        </div>
         <Button type="button" value="Hello world"/>
         <Img src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png" />
 
