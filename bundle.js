@@ -48,9 +48,9 @@
 	
 	__webpack_require__(1);
 	
-	__webpack_require__(192);
-	
 	__webpack_require__(194);
+	
+	__webpack_require__(196);
 
 /***/ },
 /* 1 */
@@ -70,15 +70,17 @@
 	
 	var _pubsubJs2 = _interopRequireDefault(_pubsubJs);
 	
-	var _Hello = __webpack_require__(174);
+	__webpack_require__(174);
 	
-	var _Button = __webpack_require__(175);
+	var _Hello = __webpack_require__(178);
 	
-	var _Image = __webpack_require__(176);
+	var _Button = __webpack_require__(179);
 	
-	var _RangeSlider = __webpack_require__(177);
+	var _Image = __webpack_require__(180);
 	
-	var _reactCropperjs = __webpack_require__(188);
+	var _RangeSlider = __webpack_require__(181);
+	
+	var _reactCropperjs = __webpack_require__(190);
 	
 	var _reactCropperjs2 = _interopRequireDefault(_reactCropperjs);
 	
@@ -21641,6 +21643,321 @@
 
 /***/ },
 /* 174 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 175 */,
+/* 176 */
+/***/ function(module, exports) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	// css base code, injected by the css-loader
+	module.exports = function() {
+		var list = [];
+	
+		// return the list of modules as css string
+		list.toString = function toString() {
+			var result = [];
+			for(var i = 0; i < this.length; i++) {
+				var item = this[i];
+				if(item[2]) {
+					result.push("@media " + item[2] + "{" + item[1] + "}");
+				} else {
+					result.push(item[1]);
+				}
+			}
+			return result.join("");
+		};
+	
+		// import a list of modules into the list
+		list.i = function(modules, mediaQuery) {
+			if(typeof modules === "string")
+				modules = [[null, modules, ""]];
+			var alreadyImportedModules = {};
+			for(var i = 0; i < this.length; i++) {
+				var id = this[i][0];
+				if(typeof id === "number")
+					alreadyImportedModules[id] = true;
+			}
+			for(i = 0; i < modules.length; i++) {
+				var item = modules[i];
+				// skip already imported module
+				// this implementation is not 100% perfect for weird media query combinations
+				//  when a module is imported multiple times with different media queries.
+				//  I hope this will never occur (Hey this way we have smaller bundles)
+				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+					if(mediaQuery && !item[2]) {
+						item[2] = mediaQuery;
+					} else if(mediaQuery) {
+						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+					}
+					list.push(item);
+				}
+			}
+		};
+		return list;
+	};
+
+
+/***/ },
+/* 177 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	var stylesInDom = {},
+		memoize = function(fn) {
+			var memo;
+			return function () {
+				if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+				return memo;
+			};
+		},
+		isOldIE = memoize(function() {
+			return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
+		}),
+		getHeadElement = memoize(function () {
+			return document.head || document.getElementsByTagName("head")[0];
+		}),
+		singletonElement = null,
+		singletonCounter = 0,
+		styleElementsInsertedAtTop = [];
+	
+	module.exports = function(list, options) {
+		if(false) {
+			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+		}
+	
+		options = options || {};
+		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+		// tags it will allow on a page
+		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
+	
+		// By default, add <style> tags to the bottom of <head>.
+		if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
+	
+		var styles = listToStyles(list);
+		addStylesToDom(styles, options);
+	
+		return function update(newList) {
+			var mayRemove = [];
+			for(var i = 0; i < styles.length; i++) {
+				var item = styles[i];
+				var domStyle = stylesInDom[item.id];
+				domStyle.refs--;
+				mayRemove.push(domStyle);
+			}
+			if(newList) {
+				var newStyles = listToStyles(newList);
+				addStylesToDom(newStyles, options);
+			}
+			for(var i = 0; i < mayRemove.length; i++) {
+				var domStyle = mayRemove[i];
+				if(domStyle.refs === 0) {
+					for(var j = 0; j < domStyle.parts.length; j++)
+						domStyle.parts[j]();
+					delete stylesInDom[domStyle.id];
+				}
+			}
+		};
+	}
+	
+	function addStylesToDom(styles, options) {
+		for(var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+			if(domStyle) {
+				domStyle.refs++;
+				for(var j = 0; j < domStyle.parts.length; j++) {
+					domStyle.parts[j](item.parts[j]);
+				}
+				for(; j < item.parts.length; j++) {
+					domStyle.parts.push(addStyle(item.parts[j], options));
+				}
+			} else {
+				var parts = [];
+				for(var j = 0; j < item.parts.length; j++) {
+					parts.push(addStyle(item.parts[j], options));
+				}
+				stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+			}
+		}
+	}
+	
+	function listToStyles(list) {
+		var styles = [];
+		var newStyles = {};
+		for(var i = 0; i < list.length; i++) {
+			var item = list[i];
+			var id = item[0];
+			var css = item[1];
+			var media = item[2];
+			var sourceMap = item[3];
+			var part = {css: css, media: media, sourceMap: sourceMap};
+			if(!newStyles[id])
+				styles.push(newStyles[id] = {id: id, parts: [part]});
+			else
+				newStyles[id].parts.push(part);
+		}
+		return styles;
+	}
+	
+	function insertStyleElement(options, styleElement) {
+		var head = getHeadElement();
+		var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
+		if (options.insertAt === "top") {
+			if(!lastStyleElementInsertedAtTop) {
+				head.insertBefore(styleElement, head.firstChild);
+			} else if(lastStyleElementInsertedAtTop.nextSibling) {
+				head.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
+			} else {
+				head.appendChild(styleElement);
+			}
+			styleElementsInsertedAtTop.push(styleElement);
+		} else if (options.insertAt === "bottom") {
+			head.appendChild(styleElement);
+		} else {
+			throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
+		}
+	}
+	
+	function removeStyleElement(styleElement) {
+		styleElement.parentNode.removeChild(styleElement);
+		var idx = styleElementsInsertedAtTop.indexOf(styleElement);
+		if(idx >= 0) {
+			styleElementsInsertedAtTop.splice(idx, 1);
+		}
+	}
+	
+	function createStyleElement(options) {
+		var styleElement = document.createElement("style");
+		styleElement.type = "text/css";
+		insertStyleElement(options, styleElement);
+		return styleElement;
+	}
+	
+	function createLinkElement(options) {
+		var linkElement = document.createElement("link");
+		linkElement.rel = "stylesheet";
+		insertStyleElement(options, linkElement);
+		return linkElement;
+	}
+	
+	function addStyle(obj, options) {
+		var styleElement, update, remove;
+	
+		if (options.singleton) {
+			var styleIndex = singletonCounter++;
+			styleElement = singletonElement || (singletonElement = createStyleElement(options));
+			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
+			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
+		} else if(obj.sourceMap &&
+			typeof URL === "function" &&
+			typeof URL.createObjectURL === "function" &&
+			typeof URL.revokeObjectURL === "function" &&
+			typeof Blob === "function" &&
+			typeof btoa === "function") {
+			styleElement = createLinkElement(options);
+			update = updateLink.bind(null, styleElement);
+			remove = function() {
+				removeStyleElement(styleElement);
+				if(styleElement.href)
+					URL.revokeObjectURL(styleElement.href);
+			};
+		} else {
+			styleElement = createStyleElement(options);
+			update = applyToTag.bind(null, styleElement);
+			remove = function() {
+				removeStyleElement(styleElement);
+			};
+		}
+	
+		update(obj);
+	
+		return function updateStyle(newObj) {
+			if(newObj) {
+				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
+					return;
+				update(obj = newObj);
+			} else {
+				remove();
+			}
+		};
+	}
+	
+	var replaceText = (function () {
+		var textStore = [];
+	
+		return function (index, replacement) {
+			textStore[index] = replacement;
+			return textStore.filter(Boolean).join('\n');
+		};
+	})();
+	
+	function applyToSingletonTag(styleElement, index, remove, obj) {
+		var css = remove ? "" : obj.css;
+	
+		if (styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = replaceText(index, css);
+		} else {
+			var cssNode = document.createTextNode(css);
+			var childNodes = styleElement.childNodes;
+			if (childNodes[index]) styleElement.removeChild(childNodes[index]);
+			if (childNodes.length) {
+				styleElement.insertBefore(cssNode, childNodes[index]);
+			} else {
+				styleElement.appendChild(cssNode);
+			}
+		}
+	}
+	
+	function applyToTag(styleElement, obj) {
+		var css = obj.css;
+		var media = obj.media;
+	
+		if(media) {
+			styleElement.setAttribute("media", media)
+		}
+	
+		if(styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = css;
+		} else {
+			while(styleElement.firstChild) {
+				styleElement.removeChild(styleElement.firstChild);
+			}
+			styleElement.appendChild(document.createTextNode(css));
+		}
+	}
+	
+	function updateLink(linkElement, obj) {
+		var css = obj.css;
+		var sourceMap = obj.sourceMap;
+	
+		if(sourceMap) {
+			// http://stackoverflow.com/a/26603875
+			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+		}
+	
+		var blob = new Blob([css], { type: "text/css" });
+	
+		var oldSrc = linkElement.href;
+	
+		linkElement.href = URL.createObjectURL(blob);
+	
+		if(oldSrc)
+			URL.revokeObjectURL(oldSrc);
+	}
+
+
+/***/ },
+/* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21672,7 +21989,7 @@
 	exports.Hello = Hello;
 
 /***/ },
-/* 175 */
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21700,7 +22017,7 @@
 	exports.Button = Button;
 
 /***/ },
-/* 176 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -21728,7 +22045,7 @@
 	exports.Img = Img;
 
 /***/ },
-/* 177 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21737,7 +22054,7 @@
 	  value: true
 	});
 	
-	var _volumn = __webpack_require__(178);
+	var _volumn = __webpack_require__(182);
 	
 	Object.defineProperty(exports, 'Volumn', {
 	  enumerable: true,
@@ -21746,7 +22063,7 @@
 	  }
 	});
 	
-	var _superSlider = __webpack_require__(187);
+	var _superSlider = __webpack_require__(189);
 	
 	Object.defineProperty(exports, 'SuperSlider', {
 	  enumerable: true,
@@ -21756,7 +22073,7 @@
 	});
 
 /***/ },
-/* 178 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21770,11 +22087,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactSuperslider = __webpack_require__(179);
+	var _reactSuperslider = __webpack_require__(183);
 	
 	var _reactSuperslider2 = _interopRequireDefault(_reactSuperslider);
 	
-	__webpack_require__(181);
+	__webpack_require__(185);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -21803,7 +22120,7 @@
 	exports.Volumn = Volumn;
 
 /***/ },
-/* 179 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21830,7 +22147,7 @@
 	
 	var _reactDom = __webpack_require__(34);
 	
-	var _classnames = __webpack_require__(180);
+	var _classnames = __webpack_require__(184);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
@@ -22083,7 +22400,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 180 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -22137,16 +22454,16 @@
 
 
 /***/ },
-/* 181 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(182);
+	var content = __webpack_require__(186);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(186)(content, {});
+	var update = __webpack_require__(177)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -22163,341 +22480,33 @@
 	}
 
 /***/ },
-/* 182 */
+/* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(183)();
+	exports = module.exports = __webpack_require__(176)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, "*,\n*:before,\n*:after {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box; }\n\nbody {\n  margin: 0;\n  padding: 0;\n  font-family: Helvetica, sans-serif;\n  font-weight: 400;\n  font-size: 14px;\n  line-height: 24px;\n  color: #333333;\n  overflow-x: hidden; }\n\n.superslider-wrapper {\n  width: 100%;\n  height: 100%;\n  position: relative;\n  z-index: 10000; }\n  .superslider-wrapper:after {\n    content: \" \";\n    /* Older browser do not support empty content */\n    visibility: hidden;\n    display: block;\n    height: 0;\n    clear: both; }\n\n/**\ntheme templates\n\n.theme-name\n{\n\t&.rangeslider-horizontal {\n\t   .rangeslider__fill {\n\t   }\n\t   .rangeslider__handle {\n\t\t\t&:active{\n\t\t\t}\n\t   }\n\t}\n\n\t&.rangeslider-vertical {\n\t   .rangeslider__fill {\n\t   }\n\t   .rangeslider__handle {\n\t\t   &:active {\n\t\t   }\n\t   }\n\t}\n}\n*/\n/**\n * Rangeslider\n */\n.rangeslider {\n  position: relative; }\n  .rangeslider.rangeslider-vertical {\n    height: 100%;\n    min-height: 60px; }\n  .rangeslider .rangeslider__fill, .rangeslider .rangeslider__handle {\n    position: absolute; }\n  .rangeslider, .rangeslider .rangeslider__fill {\n    display: block;\n    box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.3); }\n  .rangeslider .rangeslider__handle {\n    cursor: pointer;\n    display: inline-block;\n    position: absolute; }\n\n.default.rangeslider-horizontal {\n  height: 20px;\n  border-radius: 10px; }\n  .default.rangeslider-horizontal .rangeslider__fill {\n    height: 100%;\n    background: #27ae60;\n    border-radius: 10px;\n    top: 0; }\n  .default.rangeslider-horizontal .rangeslider__handle {\n    background: #eee;\n    border: 1px solid #ccc;\n    width: 40px;\n    height: 40px;\n    border-radius: 40px;\n    top: -10px; }\n\n.default.rangeslider-vertical {\n  margin: 0px auto;\n  width: 10px;\n  background: none; }\n  .default.rangeslider-vertical .rangeslider__fill {\n    width: 100%;\n    background: #27ae60;\n    box-shadow: none;\n    bottom: 0; }\n  .default.rangeslider-vertical .rangeslider__handle {\n    background: #eee;\n    border: 1px solid #ccc;\n    width: 30px;\n    height: 10px;\n    left: -10px; }\n    .default.rangeslider-vertical .rangeslider__handle:active {\n      box-shadow: none; }\n\n.metal-slider-1:before {\n  content: '';\n  top: 3px;\n  left: 3px;\n  bottom: 3px;\n  right: 3px;\n  position: absolute;\n  border-radius: 8px;\n  border: 1px solid #414042;\n  background: transparent;\n  z-index: 1; }\n\n.metal-slider-1.rangeslider-horizontal {\n  margin: 5px 0;\n  height: 18px;\n  border-radius: 10px;\n  background-color: #bdbdbd;\n  box-shadow: inset 0 1px 2px 0 #757575, inset 0 -1px 2px #e0e0e0; }\n  .metal-slider-1.rangeslider-horizontal .rangeslider__fill {\n    background: linear-gradient(to top, #a4a8da 0%, #2648a2 100%);\n    border-radius: 10px;\n    top: 3px;\n    bottom: 3px;\n    left: 3px;\n    right: 3px; }\n  .metal-slider-1.rangeslider-horizontal .rangeslider__handle {\n    width: 22px;\n    height: 24px;\n    background: url(" + __webpack_require__(184) + ") no-repeat;\n    background-size: cover;\n    top: -3px;\n    z-index: 2; }\n\n.metal-slider-1.rangeslider-vertical {\n  margin: 0 4px;\n  width: 18px;\n  border-radius: 10px;\n  background-color: #bdbdbd; }\n  .metal-slider-1.rangeslider-vertical .rangeslider__fill {\n    background: linear-gradient(to top, #a4a8da 0%, #2648a2 100%);\n    border-radius: 10px;\n    height: 100%;\n    bottom: 3px;\n    left: 3px;\n    right: 3px; }\n  .metal-slider-1.rangeslider-vertical .rangeslider__handle {\n    width: 22px;\n    height: 24px;\n    background: url(" + __webpack_require__(184) + ") no-repeat;\n    background-size: cover;\n    border: none;\n    z-index: 2;\n    left: -2px; }\n\n.metal-slider-2.rangeslider-horizontal {\n  margin: 5px 0;\n  height: 10px;\n  background-color: #616161;\n  border-radius: 4px; }\n  .metal-slider-2.rangeslider-horizontal .rangeslider__fill {\n    background: linear-gradient(to bottom, #48def9 0%, #38b2c7 48%, #a4f2fe 50%, #38b2c7 52%, #38b2c7 100%);\n    border-radius: 4px;\n    height: 100%; }\n  .metal-slider-2.rangeslider-horizontal .rangeslider__handle {\n    width: 18px;\n    height: 20px;\n    background: url(" + __webpack_require__(185) + ") no-repeat;\n    background-size: cover;\n    top: -5px; }\n\n.metal-slider-2.rangeslider-vertical {\n  margin: 0 4px;\n  width: 10px;\n  background: none;\n  background-color: #616161;\n  border-radius: 4px; }\n  .metal-slider-2.rangeslider-vertical .rangeslider__fill {\n    background: linear-gradient(to right, #48def9 0%, #38b2c7 48%, #a4f2fe 50%, #38b2c7 52%, #38b2c7 100%);\n    border-radius: 4px;\n    width: 100%;\n    bottom: 0; }\n  .metal-slider-2.rangeslider-vertical .rangeslider__handle {\n    width: 18px;\n    height: 20px;\n    background: url(" + __webpack_require__(185) + ") no-repeat;\n    background-size: cover;\n    left: -4px; }\n\n.metal-slider-3 {\n  background-color: #bdbdbd;\n  border-radius: 8px; }\n  .metal-slider-3.rangeslider-horizontal {\n    margin: 5px 0;\n    height: 10px;\n    box-shadow: inset -1px 1px 1px 1px #5d5d5d; }\n    .metal-slider-3.rangeslider-horizontal .rangeslider__fill {\n      box-shadow: inset -1px 1px 1px 1px #4aa049;\n      background-color: #87c886;\n      border-radius: 4px;\n      height: 100%; }\n    .metal-slider-3.rangeslider-horizontal .rangeslider__handle {\n      width: 18px;\n      height: 20px;\n      background: url(" + __webpack_require__(185) + ") no-repeat;\n      background-size: cover;\n      top: -5px; }\n  .metal-slider-3.rangeslider-vertical {\n    margin: 0 4px;\n    width: 10px;\n    box-shadow: inset -1px 1px 1px 1px #5d5d5d; }\n    .metal-slider-3.rangeslider-vertical .rangeslider__fill {\n      box-shadow: inset -1px 1px 1px 1px #4aa049;\n      background-color: #87c886;\n      border-radius: 4px;\n      width: 100%;\n      bottom: 0; }\n    .metal-slider-3.rangeslider-vertical .rangeslider__handle {\n      width: 18px;\n      height: 20px;\n      background: url(" + __webpack_require__(185) + ") no-repeat;\n      background-size: cover;\n      left: -4px; }\n", ""]);
+	exports.push([module.id, ".superslider-wrapper {\n  width: 100%;\n  height: 100%;\n  position: relative;\n  z-index: 10000; }\n  .superslider-wrapper:after {\n    content: \" \";\n    /* Older browser do not support empty content */\n    visibility: hidden;\n    display: block;\n    height: 0;\n    clear: both; }\n\n/**\ntheme templates\n\n.theme-name\n{\n\t&.rangeslider-horizontal {\n\t   .rangeslider__fill {\n\t   }\n\t   .rangeslider__handle {\n\t\t\t&:active{\n\t\t\t}\n\t   }\n\t}\n\n\t&.rangeslider-vertical {\n\t   .rangeslider__fill {\n\t   }\n\t   .rangeslider__handle {\n\t\t   &:active {\n\t\t   }\n\t   }\n\t}\n}\n*/\n/**\n * Rangeslider\n */\n.rangeslider {\n  position: relative; }\n  .rangeslider.rangeslider-horizontal {\n    min-width: 60px; }\n  .rangeslider.rangeslider-vertical {\n    height: 100%;\n    min-height: 60px; }\n  .rangeslider .rangeslider__fill, .rangeslider .rangeslider__handle {\n    position: absolute; }\n  .rangeslider, .rangeslider .rangeslider__fill {\n    display: block;\n    box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.3); }\n  .rangeslider .rangeslider__handle {\n    cursor: pointer;\n    display: inline-block;\n    position: absolute; }\n\n.default.rangeslider-horizontal {\n  height: 20px;\n  border-radius: 10px; }\n  .default.rangeslider-horizontal .rangeslider__fill {\n    height: 100%;\n    background: #27ae60;\n    border-radius: 10px;\n    top: 0; }\n  .default.rangeslider-horizontal .rangeslider__handle {\n    background: #eee;\n    border: 1px solid #ccc;\n    width: 40px;\n    height: 40px;\n    border-radius: 40px;\n    top: -10px; }\n\n.default.rangeslider-vertical {\n  margin: 0px auto;\n  width: 10px;\n  background: none; }\n  .default.rangeslider-vertical .rangeslider__fill {\n    width: 100%;\n    background: #27ae60;\n    box-shadow: none;\n    bottom: 0; }\n  .default.rangeslider-vertical .rangeslider__handle {\n    background: #eee;\n    border: 1px solid #ccc;\n    width: 30px;\n    height: 10px;\n    left: -10px; }\n    .default.rangeslider-vertical .rangeslider__handle:active {\n      box-shadow: none; }\n\n.metal-slider-1 {\n  background-color: #dadada; }\n  .metal-slider-1:before {\n    content: '';\n    top: 3px;\n    left: 3px;\n    bottom: 3px;\n    right: 3px;\n    position: absolute;\n    border-radius: 8px;\n    border: 1px solid #888;\n    background: transparent;\n    z-index: 1; }\n  .metal-slider-1.rangeslider-horizontal {\n    margin: 5px 0;\n    height: 18px;\n    border-radius: 10px;\n    box-shadow: inset 0 1px 2px 1px #777777, inset 0 -1px 2px 1px #d0d0d0; }\n    .metal-slider-1.rangeslider-horizontal .rangeslider__fill {\n      background: linear-gradient(to top, #a4a8da 0%, #2648a2 100%);\n      border-radius: 10px;\n      top: 3px;\n      bottom: 3px;\n      left: 3px;\n      right: 3px; }\n    .metal-slider-1.rangeslider-horizontal .rangeslider__handle {\n      width: 22px;\n      height: 24px;\n      background: url(" + __webpack_require__(187) + ") no-repeat;\n      background-size: cover;\n      top: -3px;\n      z-index: 2; }\n  .metal-slider-1.rangeslider-vertical {\n    margin: 0 4px;\n    width: 18px;\n    border-radius: 10px;\n    box-shadow: inset 1px 0 2px 1px #777777, inset -1px 0 2px 1px #d0d0d0; }\n    .metal-slider-1.rangeslider-vertical .rangeslider__fill {\n      background: linear-gradient(to left, #a4a8da 0%, #2648a2 100%);\n      border-radius: 10px;\n      height: 100%;\n      bottom: 3px;\n      left: 3px;\n      right: 3px; }\n    .metal-slider-1.rangeslider-vertical .rangeslider__handle {\n      width: 22px;\n      height: 24px;\n      background: url(" + __webpack_require__(187) + ") no-repeat;\n      background-size: cover;\n      border: none;\n      z-index: 2;\n      left: -2px; }\n\n.metal-slider-2.rangeslider-horizontal {\n  margin: 5px 0;\n  height: 10px;\n  background-color: #616161;\n  border-radius: 4px; }\n  .metal-slider-2.rangeslider-horizontal .rangeslider__fill {\n    box-shadow: inset 0 4px 0 0 #38def9, inset 0 -5px 0 0 #38b2c7, inset 0 -6px 0 0 #a4f2fe;\n    border-radius: 4px;\n    height: 100%; }\n  .metal-slider-2.rangeslider-horizontal .rangeslider__handle {\n    width: 18px;\n    height: 20px;\n    background: url(" + __webpack_require__(188) + ") no-repeat;\n    background-size: cover;\n    top: -5px; }\n\n.metal-slider-2.rangeslider-vertical {\n  margin: 0 4px;\n  width: 10px;\n  background: none;\n  background-color: #616161;\n  border-radius: 4px; }\n  .metal-slider-2.rangeslider-vertical .rangeslider__fill {\n    box-shadow: inset 4px 0 0 0 #38def9, inset -5px 0 0 0 #38b2c7, inset -6px 0 0 0 #a4f2fe;\n    border-radius: 4px;\n    width: 100%;\n    bottom: 0; }\n  .metal-slider-2.rangeslider-vertical .rangeslider__handle {\n    width: 18px;\n    height: 20px;\n    background: url(" + __webpack_require__(188) + ") no-repeat;\n    background-size: cover;\n    left: -4px; }\n\n.metal-slider-3 {\n  background-color: #bdbdbd;\n  border-radius: 8px; }\n  .metal-slider-3.rangeslider-horizontal {\n    margin: 5px 0;\n    height: 10px;\n    box-shadow: inset -1px 1px 1px 1px #5d5d5d; }\n    .metal-slider-3.rangeslider-horizontal .rangeslider__fill {\n      box-shadow: inset -1px 1px 1px 1px #4aa049;\n      background-color: #87c886;\n      border-radius: 4px;\n      height: 100%; }\n    .metal-slider-3.rangeslider-horizontal .rangeslider__handle {\n      width: 18px;\n      height: 20px;\n      background: url(" + __webpack_require__(188) + ") no-repeat;\n      background-size: cover;\n      top: -5px; }\n  .metal-slider-3.rangeslider-vertical {\n    margin: 0 4px;\n    width: 10px;\n    box-shadow: inset 1px -1px 1px 1px #5d5d5d; }\n    .metal-slider-3.rangeslider-vertical .rangeslider__fill {\n      box-shadow: inset 1px -1px 1px 1px #4aa049;\n      background-color: #87c886;\n      border-radius: 4px;\n      width: 100%;\n      bottom: 0; }\n    .metal-slider-3.rangeslider-vertical .rangeslider__handle {\n      width: 18px;\n      height: 20px;\n      background: url(" + __webpack_require__(188) + ") no-repeat;\n      background-size: cover;\n      left: -4px; }\n", ""]);
 	
 	// exports
 
 
 /***/ },
-/* 183 */
-/***/ function(module, exports) {
-
-	/*
-		MIT License http://www.opensource.org/licenses/mit-license.php
-		Author Tobias Koppers @sokra
-	*/
-	// css base code, injected by the css-loader
-	module.exports = function() {
-		var list = [];
-	
-		// return the list of modules as css string
-		list.toString = function toString() {
-			var result = [];
-			for(var i = 0; i < this.length; i++) {
-				var item = this[i];
-				if(item[2]) {
-					result.push("@media " + item[2] + "{" + item[1] + "}");
-				} else {
-					result.push(item[1]);
-				}
-			}
-			return result.join("");
-		};
-	
-		// import a list of modules into the list
-		list.i = function(modules, mediaQuery) {
-			if(typeof modules === "string")
-				modules = [[null, modules, ""]];
-			var alreadyImportedModules = {};
-			for(var i = 0; i < this.length; i++) {
-				var id = this[i][0];
-				if(typeof id === "number")
-					alreadyImportedModules[id] = true;
-			}
-			for(i = 0; i < modules.length; i++) {
-				var item = modules[i];
-				// skip already imported module
-				// this implementation is not 100% perfect for weird media query combinations
-				//  when a module is imported multiple times with different media queries.
-				//  I hope this will never occur (Hey this way we have smaller bundles)
-				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-					if(mediaQuery && !item[2]) {
-						item[2] = mediaQuery;
-					} else if(mediaQuery) {
-						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-					}
-					list.push(item);
-				}
-			}
-		};
-		return list;
-	};
-
-
-/***/ },
-/* 184 */
+/* 187 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/png;base64,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"
 
 /***/ },
-/* 185 */
+/* 188 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAUCAYAAACAl21KAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAy5JREFUeNp8VE1LG1EUvZnMTCaTr9EiRqkpaUBwof9ApK5qV+66KLVu2pW/oIv+g+6LIBWhuGihboqbbjRusqgULI1CxSaSD5uik8/J50zveTohBOuDSybz7j3v3HPuG4/jODS0DI7VZrP5yrKsmUajIV7quk5+vz+tado6/93kMAeLPENAy6Zpfshks3q73abhQzweD6mqSg9isYZhGM/41Y67Jw3krebz+c+5fF63bZv+t3q9HiEHuagZBlq+urp63+l0SJZl8nq94nTEIBsE9pCDXNSgVgAxfYPb2OYs8mka+Xw+kYiiwdbcZ+yhPZXz8Aa1wJCZ6qokSRoLSfINE7TW7XbF7yCYC+LnAyE+wFALDLlWr6+1mk1iN8jPm6DulSQBAPrQxG0NbEPBIAVDIfFssaMVrmXANblcLifYapJrNVIUhQKBAIU4EafbDMIHCTCdGd8bHaVIJEIYibJpUqvVog4zZxIJrq+hz76Y5UpFgIDheDRKTqFADcui+1NThNzfmUyfKVi7zD3fDg8dumO5TkGzu5ZUZQa3WQzxo+NRioQjZDMInsPhcN/RwdEAhlwoFtMRw5hxAXyqj4IsKCgXCnmOgmijym3FYjEBWK6Uqd1qU7fXFXnZ8/OqxIKtw2bYyWNPoywoei6V/mDgqMn68J2jOoteKv2larVKRsSgkZERYQyAWPhfmOzNXC7XAQDYQFAECqGLxCwxO3i2rAY7VheuwWGAZTIZxyvLO9KLlRWTWb3LZrLUarf64d43gCiKKrQRDjEg9jEyqEmlUucP4/FP4q49WVp6fXCQTBULxWtbbad/02VZEafLHJLkxV0RORcXF7S1tVUL6PrX+fn5tHTzranNzc293d3dTZ8cn2A6RCGugObXroPnSlEVcb+O08e0sbFhOY79nUHecL0juxYuLCx85Ckf29/ff849z05PT+uTk5Me12a0xVrSj6Mjm500JyYmfi4uLr7kutxtHzba29tbTiaTT8/Ozmb5IzfGU+9nvfhuSja3arGzpXg8ngITF+RWICx2RWWwx6enp48uLy+jPA4a69RkZw8TicQXaIJ2Bmv+CTAA2CXcsKIsGrwAAAAASUVORK5CYII="
 
 /***/ },
-/* 186 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/*
-		MIT License http://www.opensource.org/licenses/mit-license.php
-		Author Tobias Koppers @sokra
-	*/
-	var stylesInDom = {},
-		memoize = function(fn) {
-			var memo;
-			return function () {
-				if (typeof memo === "undefined") memo = fn.apply(this, arguments);
-				return memo;
-			};
-		},
-		isOldIE = memoize(function() {
-			return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
-		}),
-		getHeadElement = memoize(function () {
-			return document.head || document.getElementsByTagName("head")[0];
-		}),
-		singletonElement = null,
-		singletonCounter = 0,
-		styleElementsInsertedAtTop = [];
-	
-	module.exports = function(list, options) {
-		if(false) {
-			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
-		}
-	
-		options = options || {};
-		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-		// tags it will allow on a page
-		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
-	
-		// By default, add <style> tags to the bottom of <head>.
-		if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
-	
-		var styles = listToStyles(list);
-		addStylesToDom(styles, options);
-	
-		return function update(newList) {
-			var mayRemove = [];
-			for(var i = 0; i < styles.length; i++) {
-				var item = styles[i];
-				var domStyle = stylesInDom[item.id];
-				domStyle.refs--;
-				mayRemove.push(domStyle);
-			}
-			if(newList) {
-				var newStyles = listToStyles(newList);
-				addStylesToDom(newStyles, options);
-			}
-			for(var i = 0; i < mayRemove.length; i++) {
-				var domStyle = mayRemove[i];
-				if(domStyle.refs === 0) {
-					for(var j = 0; j < domStyle.parts.length; j++)
-						domStyle.parts[j]();
-					delete stylesInDom[domStyle.id];
-				}
-			}
-		};
-	}
-	
-	function addStylesToDom(styles, options) {
-		for(var i = 0; i < styles.length; i++) {
-			var item = styles[i];
-			var domStyle = stylesInDom[item.id];
-			if(domStyle) {
-				domStyle.refs++;
-				for(var j = 0; j < domStyle.parts.length; j++) {
-					domStyle.parts[j](item.parts[j]);
-				}
-				for(; j < item.parts.length; j++) {
-					domStyle.parts.push(addStyle(item.parts[j], options));
-				}
-			} else {
-				var parts = [];
-				for(var j = 0; j < item.parts.length; j++) {
-					parts.push(addStyle(item.parts[j], options));
-				}
-				stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
-			}
-		}
-	}
-	
-	function listToStyles(list) {
-		var styles = [];
-		var newStyles = {};
-		for(var i = 0; i < list.length; i++) {
-			var item = list[i];
-			var id = item[0];
-			var css = item[1];
-			var media = item[2];
-			var sourceMap = item[3];
-			var part = {css: css, media: media, sourceMap: sourceMap};
-			if(!newStyles[id])
-				styles.push(newStyles[id] = {id: id, parts: [part]});
-			else
-				newStyles[id].parts.push(part);
-		}
-		return styles;
-	}
-	
-	function insertStyleElement(options, styleElement) {
-		var head = getHeadElement();
-		var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
-		if (options.insertAt === "top") {
-			if(!lastStyleElementInsertedAtTop) {
-				head.insertBefore(styleElement, head.firstChild);
-			} else if(lastStyleElementInsertedAtTop.nextSibling) {
-				head.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
-			} else {
-				head.appendChild(styleElement);
-			}
-			styleElementsInsertedAtTop.push(styleElement);
-		} else if (options.insertAt === "bottom") {
-			head.appendChild(styleElement);
-		} else {
-			throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
-		}
-	}
-	
-	function removeStyleElement(styleElement) {
-		styleElement.parentNode.removeChild(styleElement);
-		var idx = styleElementsInsertedAtTop.indexOf(styleElement);
-		if(idx >= 0) {
-			styleElementsInsertedAtTop.splice(idx, 1);
-		}
-	}
-	
-	function createStyleElement(options) {
-		var styleElement = document.createElement("style");
-		styleElement.type = "text/css";
-		insertStyleElement(options, styleElement);
-		return styleElement;
-	}
-	
-	function createLinkElement(options) {
-		var linkElement = document.createElement("link");
-		linkElement.rel = "stylesheet";
-		insertStyleElement(options, linkElement);
-		return linkElement;
-	}
-	
-	function addStyle(obj, options) {
-		var styleElement, update, remove;
-	
-		if (options.singleton) {
-			var styleIndex = singletonCounter++;
-			styleElement = singletonElement || (singletonElement = createStyleElement(options));
-			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
-			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
-		} else if(obj.sourceMap &&
-			typeof URL === "function" &&
-			typeof URL.createObjectURL === "function" &&
-			typeof URL.revokeObjectURL === "function" &&
-			typeof Blob === "function" &&
-			typeof btoa === "function") {
-			styleElement = createLinkElement(options);
-			update = updateLink.bind(null, styleElement);
-			remove = function() {
-				removeStyleElement(styleElement);
-				if(styleElement.href)
-					URL.revokeObjectURL(styleElement.href);
-			};
-		} else {
-			styleElement = createStyleElement(options);
-			update = applyToTag.bind(null, styleElement);
-			remove = function() {
-				removeStyleElement(styleElement);
-			};
-		}
-	
-		update(obj);
-	
-		return function updateStyle(newObj) {
-			if(newObj) {
-				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
-					return;
-				update(obj = newObj);
-			} else {
-				remove();
-			}
-		};
-	}
-	
-	var replaceText = (function () {
-		var textStore = [];
-	
-		return function (index, replacement) {
-			textStore[index] = replacement;
-			return textStore.filter(Boolean).join('\n');
-		};
-	})();
-	
-	function applyToSingletonTag(styleElement, index, remove, obj) {
-		var css = remove ? "" : obj.css;
-	
-		if (styleElement.styleSheet) {
-			styleElement.styleSheet.cssText = replaceText(index, css);
-		} else {
-			var cssNode = document.createTextNode(css);
-			var childNodes = styleElement.childNodes;
-			if (childNodes[index]) styleElement.removeChild(childNodes[index]);
-			if (childNodes.length) {
-				styleElement.insertBefore(cssNode, childNodes[index]);
-			} else {
-				styleElement.appendChild(cssNode);
-			}
-		}
-	}
-	
-	function applyToTag(styleElement, obj) {
-		var css = obj.css;
-		var media = obj.media;
-	
-		if(media) {
-			styleElement.setAttribute("media", media)
-		}
-	
-		if(styleElement.styleSheet) {
-			styleElement.styleSheet.cssText = css;
-		} else {
-			while(styleElement.firstChild) {
-				styleElement.removeChild(styleElement.firstChild);
-			}
-			styleElement.appendChild(document.createTextNode(css));
-		}
-	}
-	
-	function updateLink(linkElement, obj) {
-		var css = obj.css;
-		var sourceMap = obj.sourceMap;
-	
-		if(sourceMap) {
-			// http://stackoverflow.com/a/26603875
-			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
-		}
-	
-		var blob = new Blob([css], { type: "text/css" });
-	
-		var oldSrc = linkElement.href;
-	
-		linkElement.href = URL.createObjectURL(blob);
-	
-		if(oldSrc)
-			URL.revokeObjectURL(oldSrc);
-	}
-
-
-/***/ },
-/* 187 */
+/* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22511,11 +22520,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactSuperslider = __webpack_require__(179);
+	var _reactSuperslider = __webpack_require__(183);
 	
 	var _reactSuperslider2 = _interopRequireDefault(_reactSuperslider);
 	
-	__webpack_require__(181);
+	__webpack_require__(185);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -22583,7 +22592,7 @@
 	exports.SuperSlider = SuperSlider;
 
 /***/ },
-/* 188 */
+/* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22600,13 +22609,13 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _cropperjs = __webpack_require__(189);
+	var _cropperjs = __webpack_require__(191);
 	
 	var _cropperjs2 = _interopRequireDefault(_cropperjs);
 	
-	__webpack_require__(189);
+	__webpack_require__(191);
 	
-	__webpack_require__(190);
+	__webpack_require__(192);
 	
 	var CropperJS = _react2['default'].createClass({
 	   displayName: 'CropperJS',
@@ -22790,7 +22799,7 @@
 
 
 /***/ },
-/* 189 */
+/* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -26213,13 +26222,6 @@
 
 
 /***/ },
-/* 190 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 191 */,
 /* 192 */
 /***/ function(module, exports) {
 
@@ -26228,6 +26230,13 @@
 /***/ },
 /* 193 */,
 /* 194 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 195 */,
+/* 196 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
