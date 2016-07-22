@@ -52,18 +52,24 @@ theme templates
     height: 100%;
     min-height: 60px;
   }
-  .rangeslider__fill, .rangeslider__handle {
+  .rangeslider__fill, .rangeslider__handle, .rangeslider__tracker {
   	position: absolute;
   }
 
+  &.rangeslider-vertical, &.rangeslider-horizontal {
+      &:before {
+          z-index: 2;
+      }
+  }
   &, .rangeslider__fill {
   	display: block;
-  	box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.3);
+    z-index: 1;
   }
   .rangeslider__handle {
     cursor: pointer;
     display: inline-block;
     position: absolute;
+    z-index: 3;
     &:active {
     }
   }
@@ -74,14 +80,19 @@ theme templates
   &.rangeslider-horizontal
   {
     height: 20px;
-    border-radius: 10px;
     .rangeslider__fill {
       height: 100%;
       background: #27ae60;
       border-radius: 10px;
       top: 0;
     }
-
+    .rangeslider__tracker {
+        right: 0;
+        height: 100%;
+        left: 0;
+        border-radius: 10px;
+        box-shadow: inset 0 1px 1px 1px #ccc;
+    }
     .rangeslider__handle {
       background: #eee;
       border: 1px solid #ccc;
@@ -105,7 +116,12 @@ theme templates
       box-shadow: none;
       bottom: 0;
     }
-
+    .rangeslider__tracker {
+        box-shadow: inset 0 1px 1px 1px #ccc;
+        bottom: 0;
+        width: 100%;
+        top: 0;
+    }
     .rangeslider__handle {
       background: #eee;
       border: 1px solid #ccc;
@@ -121,78 +137,94 @@ theme templates
 
 .metal-slider-1
 {
-    &:before {
-        content: '';
-        top: 3px;
-        left: 3px;
-        bottom: 3px;
-        right: 3px;
-        position: absolute;
-        border-radius: 8px;
-        border: 1px solid #656565;
-        background: transparent;
-        z-index: 1;
-    }
-    background-color: #afafaf;
   &.rangeslider-horizontal
   {
-    margin: 5px 0;
+    &:before
+    {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-image: url(https://ooo.0o0.ooo/2016/07/22/5791ef7a09271.png) 10 9 stretch;
+        border-left: 9px solid transparent;
+        border-right: 9px solid transparent;
+    }
 
-    height: 18px;
+    margin: 2px 0;
+    height: 20px;
     border-radius: 10px;
-    box-shadow: inset 0 1px 2px 1px #777777, inset 0 -1px 2px 1px #d0d0d0;
 
-    .rangeslider__fill {
-        background: linear-gradient(to top, #a4a8da 0%,#2648a2 100%);
-        border-radius: 10px;
-
+    .rangeslider__fill, .rangeslider__tracker {
         top: 3px;
         bottom: 3px;
         left: 3px;
         right: 3px;
-    }
 
+        border-radius: 10px;
+    }
+    .rangeslider__fill {
+        background: linear-gradient(to right, #a4a8da 0%,#2648a2 100%);
+    }
+    .rangeslider__tracker {
+        background: #eee;
+    }
     .rangeslider__handle {
-      width: 22px;
-      height: 24px;
-      background: url(./images/slider1-thumb.png) no-repeat;
-      background-size: cover;
-      top: -3px;
-      z-index: 2;
-      &:active {
-      }
+        width: 22px;
+        height: 24px;
+        background: url(./images/slider1-thumb.png) no-repeat;
+        background-size: cover;
+        top: -2px;
     }
   }
 
   &.rangeslider-vertical
   {
-    margin: 0 4px;
-    width: 18px;
+    margin: 0 1px;
+    width: 20px;
     border-radius: 10px;
-    box-shadow: inset 0 1px 2px 1px #777777, inset 0 -1px 2px 1px #d0d0d0;
 
-    .rangeslider__fill {
-        background: linear-gradient(to left, #a4a8da 0%,#2648a2 100%);
-        border-radius: 10px;
+    &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        border-top: 9px solid transparent;
+        border-bottom: 9px solid transparent;
+        border-image: url(https://ooo.0o0.ooo/2016/07/22/5791e8150a3f9.png) 9 10 stretch;
 
-        height: 100%;
-        bottom: 3px;
-        left: 3px;
-        right: 3px;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
     }
 
+    .rangeslider__fill, .rangeslider__tracker {
+        border-radius: 10px;
+        right: 3px;
+        left: 3px;
+        bottom: 3px;
+
+    }
+    .rangeslider__fill {
+        background: linear-gradient(to top, #a4a8da 0%,#2648a2 100%);
+    }
+    .rangeslider__tracker {
+        background-color: #eee;
+        top: 3px;
+
+    }
     .rangeslider__handle {
-      width: 22px;
-      height: 24px;
-      background: url(./images/slider1-thumb.png) no-repeat;
-      background-size: cover;
-      border: none;
-      z-index: 2;
+        width: 22px;
+        height: 24px;
+        background: url(./images/slider1-thumb.png) no-repeat;
+        background-size: cover;
+        border: none;
 
-      left: -2px;
-
-      &:active {
-      }
+        left: -1px;
     }
   }
 }
@@ -203,13 +235,17 @@ theme templates
     margin: 5px 0;
     height: 10px;
 
-    background-color: #616161;
-    border-radius: 4px;
-
     .rangeslider__fill {
         background-color: #38b2c7;
         border-radius: 4px;
         height: 100%;
+    }
+    .rangeslider__tracker {
+        background-color: #616161;
+        border-radius: 4px;
+        height: 100%;
+        right: 0;
+        left: 0;
     }
     .rangeslider__handle {
       width: 18px;
@@ -218,9 +254,6 @@ theme templates
       background-size: cover;
 
       top: -5px;
-
-      &:active{
-      }
     }
   }
   &.rangeslider-vertical {
@@ -228,15 +261,18 @@ theme templates
     width: 10px;
     background: none;
 
-    background-color: #616161;
-    border-radius: 4px;
-
-
     .rangeslider__fill {
         background-color: #38b2c7;
         border-radius: 4px;
         width: 100%;
         bottom: 0;
+    }
+    .rangeslider__tracker {
+        background-color: #616161;
+        border-radius: 4px;
+        top: 0;
+        bottom: 0;
+        width: 100%;
     }
     .rangeslider__handle {
       width: 18px;
@@ -245,9 +281,6 @@ theme templates
       background-size: cover;
 
       left: -4px;
-
-      &:active {
-      }
     }
   }
 }
