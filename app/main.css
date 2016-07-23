@@ -1,4 +1,27 @@
 body
 {
-    background-color: #ece;
+    background-color: #efefef;
+}
+
+
+.container
+{
+    display: flex;
+    align-items: stretch;
+
+  height: 400px;
+}
+
+.row-fixed
+{
+    width: 200px;
+    height: 100px;
+
+  background-color: #ddd;
+}
+.row-grow
+{
+    flex-grow: 1;
+
+  background-color: #ccc;
 }
