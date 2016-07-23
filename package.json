@@ -14,7 +14,7 @@
     "webpack": "^1.12.14"
   },
   "devDependencies": {
-    "babel-core": "^6.7.2",
+    "babel-core": "^6.10.4",
     "babel-loader": "^6.2.4",
     "copy-webpack-plugin": "^1.1.1",
     "extract-text-webpack-plugin": "^1.0.1",
