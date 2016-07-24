@@ -2,6 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import PubSub from 'pubsub-js'
 
+import { Router, Route, IndexRoute, Link, hashHistory } from 'react-router'
+
 import 'normalize.css'
 
 import {Hello} from './components/Hello'
@@ -50,7 +52,6 @@ var Cropper = React.createClass({
     }
 });
 
-
 var FileZone = React.createClass({
     handleChange: function(e)
     {
@@ -80,20 +81,18 @@ var FileZone = React.createClass({
         var file = e.dataTransfer.files[0];
 
         this.getFileBase64(file);
-
     },
-
     getFileBase64: function(file)
     {
         var reader = new FileReader();
         reader.onload =(upload)=> {
-            this.sendFileBase64(upload.target.result)
+            this.sendFileBase64(upload.target.result);
         };
         reader.readAsDataURL(file);
     },
     sendFileBase64: function(base64)
     {
-        this.props.sendFileBase64(base64)
+        this.props.sendFileBase64(base64);
     },
     render: function()
     {
@@ -104,8 +103,7 @@ var FileZone = React.createClass({
             </label>
         )
     }
-})
-
+});
 
 // container components
 var ImgCropper = React.createClass({
@@ -179,92 +177,152 @@ var ImgCropper = React.createClass({
             </div>
         )
     }
-})
+});
 
+function Home(props)
+{
+    return (
+        <div>
+            <Button type="button" value="Hello world"/>
+            <Img src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png" />
+        </div>
+    )
+}
+function Inbox(props)
+{
+  var {children} = props;
 
+  function c()
+  {
+    return (
+      <ul>
+        <li>{props.children}</li>
+      </ul>
+    )
+  }
+  return (
+    <div>
+      <h1>Inbox:</h1>
+      <p>See messages here:</p>
+      <Link to="/inbox/messages/here I am!">want to see?</Link>
+      {children || ''}
+    </div>
+  )
+}
+function Message(props)
+{
+  return (
+    <div>Message: {props.params.msg}</div>
+  )
+}
+function Sliders(props)
+{
+    return (
+        <div>
+            <Hello
+                name='SuperSlider'/>
+            <p>default:</p>
+            <SuperSlider
+                value={10}
+                orientation='vertical'/>
+            <SuperSlider
+                min={-10}
+                max={40}
+                step={5}
+                value={5}/>
+            <p>metal slider 1:</p>
+            <SuperSlider
+                value={15}
+                theme='metal-slider-1'/>
+            <div style={{height: '100px'}}>
+                <SuperSlider
+                    value={75}
+                    orientation='vertical'
+                    theme='metal-slider-1'/>
+            </div>
+            <p>metal slider 2:</p>
+            <SuperSlider
+                value={55}
+                width={400}
+                theme='metal-slider-2'/>
+            <SuperSlider
+                value={85}
+                width={200}
+                theme='metal-slider-2'/>
+            <SuperSlider
+                value={35}
+                height={120}
+                orientation='vertical'
+                theme='metal-slider-2'/>
+            <SuperSlider
+                value={50}
+                height={60}
+                orientation='vertical'
+                theme='metal-slider-2'/>
+            <p>metal slider 3:</p>
+            <SuperSlider
+                value={15}
+                theme='metal-slider-3'/>
+            <div style={{height: '100px'}}>
+                <SuperSlider
+                    value={75}
+                    orientation='vertical'
+                    theme='metal-slider-3'/>
+            </div>
+            <div className="container">
+                <div className="row-fixed">
+                    <SuperSlider
+                        value={5}
+                        theme='metal-slider-1'/>
+                </div>
+                <div className="row-grow">
+                    <SuperSlider
+                        value={5}
+                        theme='metal-slider-1'/>
+                </div>
+            </div>
+            <hr/>
+            <div className="container">
+                <div className="row-fixed">
+                    <SuperSlider
+                        value={5}
+                        orientation='vertical'
+                        theme='metal-slider-1'/>
+                </div>
+                <div className="row-grow">
+                    <SuperSlider
+                        value={5}
+                        orientation='vertical'
+                        theme='metal-slider-1'/>
+                </div>
+            </div>
+        </div>
+    )
+}
+function App(props)
+{
+    return (
+        <div>
+            <h1>App</h1>
+            <ul>
+                <li><Link to="/">Home</Link></li>
+                <li><Link to="/inbox">Inbox</Link></li>
+                <li><Link to="/sliders">Sliders</Link></li>
+            </ul>
+            {props.children}
+        </div>
+    )
+}
 
 ReactDOM.render(
-    <div>
-        <Hello
-            name='SuperSlider'/>
-        <p>default:</p>
-        <SuperSlider
-            value={10}
-            orientation='vertical'/>
-        <SuperSlider
-            min={-10}
-            max={40}
-            step={5}
-            value={5}/>
-        <p>metal slider 1:</p>
-        <SuperSlider
-            value={15}
-            theme='metal-slider-1'/>
-        <div style={{height: '100px'}}>
-            <SuperSlider
-                value={75}
-                orientation='vertical'
-                theme='metal-slider-1'/>
-        </div>
-        <p>metal slider 2:</p>
-        <SuperSlider
-            value={55}
-            width={400}
-            theme='metal-slider-2'/>
-        <SuperSlider
-            value={85}
-            width={200}
-            theme='metal-slider-2'/>
-        <SuperSlider
-            value={35}
-            height={120}
-            orientation='vertical'
-            theme='metal-slider-2'/>
-        <SuperSlider
-            value={50}
-            height={60}
-            orientation='vertical'
-            theme='metal-slider-2'/>
-        <p>metal slider 3:</p>
-        <SuperSlider
-            value={15}
-            theme='metal-slider-3'/>
-        <div style={{height: '100px'}}>
-            <SuperSlider
-                value={75}
-                orientation='vertical'
-                theme='metal-slider-3'/>
-        </div>
-        <Button type="button" value="Hello world"/>
-        <Img src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png" />
-
-        <div className="container">
-            <div className="row-fixed">
-                <SuperSlider
-                    value={5}
-                    theme='metal-slider-1'/>
-            </div>
-            <div className="row-grow">
-                <SuperSlider
-                    value={5}
-                    theme='metal-slider-1'/>
-            </div>
-        </div>
-        <hr/>
-        <div className="container">
-            <div className="row-fixed">
-                <SuperSlider
-                    value={5}
-                    orientation='vertical'
-                    theme='metal-slider-1'/>
-            </div>
-            <div className="row-grow">
-                <SuperSlider
-                    value={5}
-                    orientation='vertical'
-                    theme='metal-slider-1'/>
-            </div>
-        </div>
-    </div>,
+    <Router history={hashHistory}>
+        <Route path="/" component={App}>
+            <IndexRoute component={Home} />
+            <Route path="inbox" component={Inbox}>
+                <Route path="messages/:msg" component={Message} />
+            </Route>
+            <Route path="sliders" component={Sliders} />
+        </Route>
+    </Router>,
     document.getElementById('container')
-)
+);
