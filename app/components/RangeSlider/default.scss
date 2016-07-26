@@ -183,10 +183,6 @@ theme templates
 
   &.rangeslider-vertical
   {
-    margin: 0 1px;
-    width: 20px;
-    border-radius: 10px;
-
     &:before {
         content: '';
         position: absolute;
@@ -202,6 +198,10 @@ theme templates
         border-right: 10px solid transparent;
     }
 
+    margin: 0 1px;
+    width: 20px;
+    border-radius: 10px;
+
     .rangeslider__fill, .rangeslider__tracker {
         border-radius: 10px;
         right: 3px;
@@ -215,7 +215,6 @@ theme templates
     .rangeslider__tracker {
         background-color: #eee;
         top: 3px;
-
     }
     .rangeslider__handle {
         width: 22px;
@@ -287,45 +286,77 @@ theme templates
 
 .metal-slider-3
 {
-    background-color: #bdbdbd;
-    border-radius: 8px;
-
   &.rangeslider-horizontal {
-    margin: 5px 0;
-    height: 10px;
+    &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        border-top: 12px solid transparent;
+        border-bottom: 12px solid transparent;
+        border-image: url(https://ooo.0o0.ooo/2016/07/26/57973ca008798.png) 12 12 stretch;
+        border-left: 12px solid transparent;
+        border-right: 12px solid transparent;
+    }
 
-    box-shadow: inset 0 1px 1px 0px #5d5d5d, inset -1px 1px 1px 0px #5d5d5d;
+    height: 24px;
+    border-radius: 8px;
+    .rangeslider__fill, .rangeslider__tracker {
+        border-radius: 8px;
 
+        top: 3px;
+        bottom: 3px;
+        left: 3px;
+        right: 3px;
+    }
     .rangeslider__fill {
-        box-shadow: inset 0 1px 1px 1px #4aa049;
         background-color: #87c886;
-        border-radius: 4px;
-        height: 100%;
+    }
+    .rangeslider__tracker {
+        background-color: #bdbdbd;
     }
     .rangeslider__handle {
       width: 18px;
       height: 20px;
-      background: url(./images/slider2-thumb.png) no-repeat;
+      background: url(https://ooo.0o0.ooo/2016/07/24/5795863e80f88.png) no-repeat;
       background-size: cover;
-
-      top: -5px;
-
-      &:active{
-      }
+      top: 2px;
     }
   }
   &.rangeslider-vertical {
-    margin: 0 4px;
-    width: 10px;
-    box-shadow: inset 0 1px 1px 0px #5d5d5d, inset 0 -1px 1px 0px #5d5d5d;
+      &:before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          right: 0;
+          border-top: 12px solid transparent;
+          border-bottom: 12px solid transparent;
+          border-image: url(https://ooo.0o0.ooo/2016/07/26/57973cc67dfae.png) 12 12 stretch;
 
+          border-left: 12px solid transparent;
+          border-right: 12px solid transparent;
+      }
+
+    width: 24px;
+    border-radius: 8px;
+
+    .rangeslider__fill, .rangeslider__tracker {
+        border-radius: 8px;
+
+        bottom: 3px;
+        left: 3px;
+        right: 3px;
+    }
     .rangeslider__fill {
-        box-shadow: inset 0 0 1px 1px #4aa049;
         background-color: #87c886;
-        border-radius: 4px;
-
-        width: 100%;
-        bottom: 0;
+    }
+    .rangeslider__tracker {
+        background-color: #bdbdbd;
+        top: 3px;
     }
     .rangeslider__handle {
       width: 18px;
@@ -333,7 +364,7 @@ theme templates
       background: url(./images/slider2-thumb.png) no-repeat;
       background-size: cover;
 
-      left: -4px;
+      left: 2px;
 
       &:active {
       }
