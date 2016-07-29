@@ -218,12 +218,19 @@ function Message(props)
 function Sliders(props)
 {
     return (
-        <div>
+        <div
+            ref={(el)=>{
+                el.style.fontSize = '24px'
+            }}
+            >
             <Hello
                 name='SuperSlider'/>
             <p>default:</p>
             <SuperSlider
                 value={10}
+            trackerDecorate={{backgroundColor:'purple'}}
+            fillDecorate={{backgroundColor:'yellow'}}
+            handleDecorate={{backgroundColor:'red'}}
                 orientation='vertical'/>
             <SuperSlider
                 min={-10}
@@ -233,6 +240,10 @@ function Sliders(props)
             <p>metal slider 1:</p>
             <SuperSlider
                 value={15}
+            width={200}
+            trackerDecorate={{}}
+            fillDecorate={{}}
+            handleDecorate={{}}
                 theme='metal-slider-1'/>
             <div style={{height: '100px'}}>
                 <SuperSlider
