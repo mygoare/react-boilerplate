@@ -34,7 +34,7 @@ var CircularProgress = React.createClass({
         return {
             strokeWidth: 2,
             arc: 0,
-            fgStrokeColor: 'rebeccapurple',
+            fgStrokeColor: 'green',
             bgStrokeColor: '#ddd',
 
             value: 50,
@@ -52,6 +52,8 @@ var CircularProgress = React.createClass({
     render: function()
     {
         var {value, min, max, width, height, arc, strokeWidth, fgStrokeColor, bgStrokeColor} = this.props;
+        strokeWidth = parseInt(strokeWidth);
+        if (value < min || value > max) return;
         var percentage = 10;
 
         arc = 360 - arc;

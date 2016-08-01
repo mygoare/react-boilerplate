@@ -216,6 +216,57 @@ var ImgCropper = React.createClass({
     }
 });
 
+var CircleControl = React.createClass({
+    getInitialState: function()
+    {
+        return {
+            value: 0,
+            arc: 120,
+            strokeWidth: 10
+        }
+    },
+    handleValue: function(e)
+    {
+        var val = e.target.value;
+
+        this.setState({value: val});
+    },
+    handleArc: function(e)
+    {
+        var val = e.target.value;
+
+        this.setState({arc: val});
+    },
+    handleStrokeWidth: function(e)
+    {
+        var val = e.target.value;
+
+        this.setState({strokeWidth: val});
+    },
+    render: function()
+    {
+        return (
+            <div>
+                value: <input onBlur={this.handleValue}/>
+                arc: <input onBlur={this.handleArc}/>
+                strokeWidth: <input onBlur={this.handleStrokeWidth}/>
+
+                <CircularProgress
+                    width={180}
+                    height={180}
+                    strokeWidth={this.state.strokeWidth}
+                    value={this.state.value}
+                    min={-10}
+                    max={20}
+                    arc={this.state.arc}
+                    fgStrokeColor='green'
+                    bgStrokeColor='#ddd'
+                    />
+            </div>
+        )
+    }
+});
+
 function Home(props)
 {
     return (
@@ -223,16 +274,17 @@ function Home(props)
             <Button type="button" value="Hello world"/>
             <Img src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png" />
             <TodoList/>
+            <CircleControl/>
             <CircularProgress
                 width={180}
                 height={180}
-                strokeWidth={20}
-                value={10}
+                strokeWidth={10}
+                value={20}
                 min={-10}
                 max={30}
-                arc={340}
-                bgStrokeColor='#ddd'
+                arc={120}
                 fgStrokeColor='green'
+                bgStrokeColor='#ddd'
                 />
             <Button type="button" value="Hello world"/>
         </div>
