@@ -13,6 +13,17 @@ import {Volumn, SuperSlider} from './components/RangeSlider'
 
 import CropperJS from 'react-cropperjs'
 
+import {Provider} from 'react-redux'
+import {Counter} from './components/Counter'
+import {AddCounter} from './containers/AddCounter'
+import {createStore} from 'redux'
+import {reducers} from './reducers'
+
+var store = createStore(reducers);
+store.subscribe(()=>{
+  console.log(store.getState());
+});
+
 var Cropper = React.createClass({
     getDefaultProps: function()
     {
@@ -185,6 +196,7 @@ function Home(props)
         <div>
             <Button type="button" value="Hello world"/>
             <Img src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png" />
+            <AddCounter />
         </div>
     )
 }
@@ -315,14 +327,16 @@ function App(props)
 }
 
 ReactDOM.render(
-    <Router history={hashHistory}>
-        <Route path="/" component={App}>
-            <IndexRoute component={Home} />
-            <Route path="inbox" component={Inbox}>
-                <Route path="messages/:msg" component={Message} />
-            </Route>
-            <Route path="sliders" component={Sliders} />
-        </Route>
-    </Router>,
+    <Provider store={store}>
+      <Router history={hashHistory}>
+          <Route path="/" component={App}>
+              <IndexRoute component={Home} />
+              <Route path="inbox" component={Inbox}>
+                  <Route path="messages/:msg" component={Message} />
+              </Route>
+              <Route path="sliders" component={Sliders} />
+          </Route>
+      </Router>
+    </Provider>,
     document.getElementById('container')
 );
