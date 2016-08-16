@@ -13,7 +13,6 @@ import {Volumn, SuperSlider} from './components/RangeSlider'
 
 import CropperJS from 'react-cropperjs'
 
-<<<<<<< HEAD
 import {Provider} from 'react-redux'
 import {Counter} from './components/Counter'
 import {AddCounter} from './containers/AddCounter'
@@ -21,9 +20,8 @@ import {createStore} from 'redux'
 import {reducers} from './reducers'
 
 var store = createStore(reducers);
-store.subscribe(()=>{
-  console.log(store.getState());
-=======
+store.subscribe(()=> console.log(store.getState()));
+
 import {CircularProgress} from './components/CircularProgress'
 
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
@@ -59,7 +57,6 @@ var TodoList = React.createClass({
       </div>
     );
   }
->>>>>>> 08882bbe8c9ab30acfa57b64591e8c1eb4064286
 });
 
 var Cropper = React.createClass({
