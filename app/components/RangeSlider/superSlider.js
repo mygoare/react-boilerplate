@@ -1,5 +1,6 @@
 import React from 'react'
-import Slider from 'react-superslider'
+// import Slider from 'react-superslider'
+import Slider from './lib'
 
 import './default.scss'
 
@@ -12,7 +13,9 @@ var SuperSlider = React.createClass({
             step: 1,
             orientation: 'horizontal',
             value: 0,
-            theme: 'default'
+            theme: 'default',
+            fillDecorate: {},
+            trackerDecorate: {},
         }
     },
     getInitialState: function()
@@ -29,7 +32,7 @@ var SuperSlider = React.createClass({
     },
     render: function()
     {
-        var {min, max, step, orientation, theme, value, width, height} = this.props;
+        var {min, max, step, orientation, theme, value, width, height, fillDecorate, trackerDecorate, handleDecorate} = this.props;
 
         var wrapperStyle = {};
         switch (orientation)
@@ -50,6 +53,9 @@ var SuperSlider = React.createClass({
                     step={step}
                     orientation={orientation}
                     theme={theme}
+                    fillDecorate={fillDecorate}
+                    trackerDecorate={trackerDecorate}
+                    handleDecorate={handleDecorate}
                     value={this.state.value}
                     onChange={this.handleChange}
                     />

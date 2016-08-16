@@ -13,6 +13,7 @@ import {Volumn, SuperSlider} from './components/RangeSlider'
 
 import CropperJS from 'react-cropperjs'
 
+<<<<<<< HEAD
 import {Provider} from 'react-redux'
 import {Counter} from './components/Counter'
 import {AddCounter} from './containers/AddCounter'
@@ -22,6 +23,43 @@ import {reducers} from './reducers'
 var store = createStore(reducers);
 store.subscribe(()=>{
   console.log(store.getState());
+=======
+import {CircularProgress} from './components/CircularProgress'
+
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+
+var TodoList = React.createClass({
+  getInitialState: function() {
+    return {items: ['hello', 'world', 'click', 'me']};
+  },
+  handleAdd: function() {
+    var newItems =
+      this.state.items.concat([prompt('Enter some text')]);
+    this.setState({items: newItems});
+  },
+  handleRemove: function(i) {
+    var newItems = this.state.items.slice();
+    newItems.splice(i, 1);
+    this.setState({items: newItems});
+  },
+  render: function() {
+    var items = this.state.items.map(function(item, i) {
+      return (
+        <div key={item} onClick={this.handleRemove.bind(this, i)}>
+          {item}
+        </div>
+      );
+    }.bind(this));
+    return (
+      <div>
+        <button onClick={this.handleAdd}>Add Item</button>
+        <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+          {items}
+        </ReactCSSTransitionGroup>
+      </div>
+    );
+  }
+>>>>>>> 08882bbe8c9ab30acfa57b64591e8c1eb4064286
 });
 
 var Cropper = React.createClass({
@@ -190,6 +228,57 @@ var ImgCropper = React.createClass({
     }
 });
 
+var CircleControl = React.createClass({
+    getInitialState: function()
+    {
+        return {
+            value: 0,
+            arc: 120,
+            strokeWidth: 10
+        }
+    },
+    handleValue: function(e)
+    {
+        var val = e.target.value;
+
+        this.setState({value: val});
+    },
+    handleArc: function(e)
+    {
+        var val = e.target.value;
+
+        this.setState({arc: val});
+    },
+    handleStrokeWidth: function(e)
+    {
+        var val = e.target.value;
+
+        this.setState({strokeWidth: val});
+    },
+    render: function()
+    {
+        return (
+            <div>
+                value: <input onBlur={this.handleValue}/>
+                arc: <input onBlur={this.handleArc}/>
+                strokeWidth: <input onBlur={this.handleStrokeWidth}/>
+
+                <CircularProgress
+                    width={180}
+                    height={180}
+                    strokeWidth={this.state.strokeWidth}
+                    value={this.state.value}
+                    min={-10}
+                    max={20}
+                    arc={this.state.arc}
+                    fgStrokeColor='green'
+                    bgStrokeColor='#ddd'
+                    />
+            </div>
+        )
+    }
+});
+
 function Home(props)
 {
     return (
@@ -197,6 +286,20 @@ function Home(props)
             <Button type="button" value="Hello world"/>
             <Img src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png" />
             <AddCounter />
+            <TodoList/>
+            <CircleControl/>
+            <CircularProgress
+                width={180}
+                height={180}
+                strokeWidth={10}
+                value={20}
+                min={-10}
+                max={30}
+                arc={120}
+                fgStrokeColor='green'
+                bgStrokeColor='#ddd'
+                />
+            <Button type="button" value="Hello world"/>
         </div>
     )
 }
@@ -230,28 +333,39 @@ function Message(props)
 function Sliders(props)
 {
     return (
-        <div>
-            <Hello
-                name='SuperSlider'/>
-            <p>default:</p>
+        <div
+            ref={(el)=>{
+                el.style.fontSize = '24px'
+            }}
+            >
+        <Hello
+            name='SuperSlider'/>
+        <p>default:</p>
+        <SuperSlider
+            value={10}
+            trackerDecorate={{backgroundColor:'purple'}}
+            fillDecorate={{backgroundColor:'yellow'}}
+            handleDecorate={{backgroundColor:'red'}}
+            orientation='vertical'/>
+        <SuperSlider
+            min={-10}
+            max={40}
+            step={5}
+            value={5}/>
+        <p>metal slider 1:</p>
+        <SuperSlider
+            value={15}
+            width={200}
+            trackerDecorate={{}}
+            fillDecorate={{}}
+            handleDecorate={{}}
+            theme='metal-slider-1'/>
+        <div style={{height: '100px'}}>
             <SuperSlider
-                value={10}
-                orientation='vertical'/>
-            <SuperSlider
-                min={-10}
-                max={40}
-                step={5}
-                value={5}/>
-            <p>metal slider 1:</p>
-            <SuperSlider
-                value={15}
+                value={75}
+                orientation='vertical'
                 theme='metal-slider-1'/>
-            <div style={{height: '100px'}}>
-                <SuperSlider
-                    value={75}
-                    orientation='vertical'
-                    theme='metal-slider-1'/>
-            </div>
+        </div>
             <p>metal slider 2:</p>
             <SuperSlider
                 value={55}
