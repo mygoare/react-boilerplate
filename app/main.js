@@ -23,6 +23,8 @@ var store = createStore(reducers);
 store.subscribe(()=> console.log(store.getState()));
 
 import {CircularProgress} from './components/CircularProgress'
+import {CircleProgress} from './components/CircularProgress/circleProgress.js'
+import {SuperLamp} from './components/SuperLamp'
 
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
@@ -229,9 +231,9 @@ var CircleControl = React.createClass({
     getInitialState: function()
     {
         return {
-            value: 0,
-            arc: 120,
-            strokeWidth: 10
+            value: 78,
+            arc: 270,
+            thickness: 9
         }
     },
     handleValue: function(e)
@@ -246,11 +248,19 @@ var CircleControl = React.createClass({
 
         this.setState({arc: val});
     },
-    handleStrokeWidth: function(e)
+    thickness: function(e)
     {
         var val = e.target.value;
 
-        this.setState({strokeWidth: val});
+        this.setState({thickness: val});
+    },
+    componentDidMount: function()
+    {
+        // var self = this;
+        // setInterval(function(){
+        //     self.setState({value: Math.floor(Math.random() * 100)})
+        // }, 500);
+        this.setState({value: 100})
     },
     render: function()
     {
@@ -258,19 +268,113 @@ var CircleControl = React.createClass({
             <div>
                 value: <input onBlur={this.handleValue}/>
                 arc: <input onBlur={this.handleArc}/>
-                strokeWidth: <input onBlur={this.handleStrokeWidth}/>
+                thickness: <input onBlur={this.thickness}/>
 
-                <CircularProgress
-                    width={180}
-                    height={180}
-                    strokeWidth={this.state.strokeWidth}
-                    value={this.state.value}
-                    min={-10}
-                    max={20}
-                    arc={this.state.arc}
-                    fgStrokeColor='green'
-                    bgStrokeColor='#ddd'
+                <div>
+                    <p>ABC</p>
+
+                    <CircleProgress
+                        clip={false}
+                        thickness={parseInt(this.state.thickness)}
+                        radius={41}
+                        arc={parseInt(this.state.arc)}
+                        bgStrokeColor='#404042'
+                        fgStrokeColor={
+                            {
+                                green    : 2,
+                                orange   : 1,
+                                red      : 6,
+                                purple   : 3,
+                                '#cc0000': 2
+                            }
+                        }
+                        colorGradient={false}
+                        value={parseInt(this.state.value)}
+                        onChange={function(){console.log('haha')}}
+                        background='https://ooo.0o0.ooo/2016/08/09/57aaa23f47f80.png'
+                        foreground='https://ooo.0o0.ooo/2016/08/09/57aaa23f6bc53.png'
                     />
+
+                    <SuperLamp/>
+                    <SuperLamp color='blue' />
+                    <SuperLamp value={34} />
+                    <SuperLamp color='blue' value={34} />
+                    <SuperLamp color='blue' value={34} size={48} />
+
+                    <div style={{display: 'flex'}}>
+                        <div>
+                            <SuperLamp color='red' value={0} />
+                            <SuperLamp color='red' value={10} />
+                            <SuperLamp color='red' value={20} />
+                            <SuperLamp color='red' value={30} />
+                            <SuperLamp color='red' value={40} />
+                            <SuperLamp color='red' value={50} />
+                            <SuperLamp color='red' value={60} />
+                            <SuperLamp color='red' value={70} />
+                            <SuperLamp color='red' value={80} />
+                            <SuperLamp color='red' value={90} />
+                            <SuperLamp color='red' value={100} />
+                        </div>
+                        <div>
+                            <SuperLamp color='#3c7eab' value={0} />
+                            <SuperLamp color='#3c7eab' value={10} />
+                            <SuperLamp color='#3c7eab' value={20} />
+                            <SuperLamp color='#3c7eab' value={30} />
+                            <SuperLamp color='#3c7eab' value={40} />
+                            <SuperLamp color='#3c7eab' value={50} />
+                            <SuperLamp color='#3c7eab' value={60} />
+                            <SuperLamp color='#3c7eab' value={70} />
+                            <SuperLamp color='#3c7eab' value={80} />
+                            <SuperLamp color='#3c7eab' value={90} />
+                            <SuperLamp color='#3c7eab' value={100} />
+                        </div>
+                        <div>
+                            <SuperLamp color='green' value={0} />
+                            <SuperLamp color='green' value={10} />
+                            <SuperLamp color='green' value={20} />
+                            <SuperLamp color='green' value={30} />
+                            <SuperLamp color='green' value={40} />
+                            <SuperLamp color='green' value={50} />
+                            <SuperLamp color='green' value={60} />
+                            <SuperLamp color='green' value={70} />
+                            <SuperLamp color='green' value={80} />
+                            <SuperLamp color='green' value={90} />
+                            <SuperLamp color='green' value={100} />
+                        </div>
+                        <div>
+                            <SuperLamp color='purple' value={0} />
+                            <SuperLamp color='purple' value={10} />
+                            <SuperLamp color='purple' value={20} />
+                            <SuperLamp color='purple' value={30} />
+                            <SuperLamp color='purple' value={40} />
+                            <SuperLamp color='purple' value={50} />
+                            <SuperLamp color='purple' value={60} />
+                            <SuperLamp color='purple' value={70} />
+                            <SuperLamp color='purple' value={80} />
+                            <SuperLamp color='purple' value={90} />
+                            <SuperLamp color='purple' value={100} />
+                        </div>
+                        <div>
+                            <SuperLamp color='yellow' value={0} />
+                            <SuperLamp color='yellow' value={10} />
+                            <SuperLamp color='yellow' value={20} />
+                            <SuperLamp color='yellow' value={30} />
+                            <SuperLamp color='yellow' value={40} />
+                            <SuperLamp color='yellow' value={50} />
+                            <SuperLamp color='yellow' value={60} />
+                            <SuperLamp color='yellow' value={70} />
+                            <SuperLamp color='yellow' value={80} />
+                            <SuperLamp color='yellow' value={90} />
+                            <SuperLamp color='yellow' value={100} />
+                        </div>
+                    </div>
+
+
+
+
+
+                </div>
+
             </div>
         )
     }
@@ -285,18 +389,6 @@ function Home(props)
             <AddCounter />
             <TodoList/>
             <CircleControl/>
-            <CircularProgress
-                width={180}
-                height={180}
-                strokeWidth={10}
-                value={20}
-                min={-10}
-                max={30}
-                arc={120}
-                fgStrokeColor='green'
-                bgStrokeColor='#ddd'
-                />
-            <Button type="button" value="Hello world"/>
         </div>
     )
 }
@@ -332,11 +424,12 @@ function Sliders(props)
     return (
         <div
             ref={(el)=>{
-                el.style.fontSize = '24px'
+                if (el != null) el.style.fontSize = '24px'
             }}
             >
         <Hello
             name='SuperSlider'/>
+        <Volumn/>
         <p>default:</p>
         <SuperSlider
             value={10}
@@ -422,6 +515,74 @@ function Sliders(props)
         </div>
     )
 }
+function CircleProgresses(props)
+{
+    return (
+        <div>
+            <CircleProgress
+            />
+            <CircleProgress
+                clip={true}
+                radius={48}
+                value={100}
+                thickness={14}
+                arc={180}
+                bgStrokeColor='#404042'
+                fgStrokeColor={
+                {
+                    green  : 2,
+                    orange : 1,
+                    red    : 6,
+                    purple : 2
+                }
+                }
+                colorGradient={false}
+                foreground='https://ooo.0o0.ooo/2016/08/16/57b2b62296dbe.png'
+            />
+            <CircleProgress
+                colorGradient={true}
+                value={98}
+                thickness={20}
+                bgStrokeColor='white'
+                fgStrokeColor={{
+                    green  : 2,
+                    orange : 1,
+                    red    : 6,
+                    purple : 2
+                }}
+            />
+            <CircleProgress
+                radius = {52}
+                arc = {270}
+                thickness = {11}
+                colorGradient = {true}
+                bgStrokeColor ='#404042'
+                fgStrokeColor = {['green', 'orange', 'red']}
+                background = 'https://ooo.0o0.ooo/2016/08/21/57ba690e5ec79.png'
+                foreground =  'https://ooo.0o0.ooo/2016/08/21/57ba690ec7ce7.png'
+            />
+            <CircleProgress
+                clip = {true}
+                value = {100}
+                thickness = {14}
+                radius = {48}
+                arc = {180}
+                colorGradient = {false}
+                foreground ='https://ooo.0o0.ooo/2016/08/16/57b2b62296dbe.png'
+                fgStrokeColor = {
+                    {
+                        '#3ec1e8': 1,
+                        '#47a905': 2,
+                        '#9adc1f': 3,
+                        '#fdca00': 4,
+                        orange   : 5,
+                        red      : 6
+                    }
+                }
+            />
+        </div>
+    )
+}
 function App(props)
 {
     return (
@@ -431,6 +592,7 @@ function App(props)
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/inbox">Inbox</Link></li>
                 <li><Link to="/sliders">Sliders</Link></li>
+                <li><Link to="/circleProgresses">CircleProgresses</Link></li>
             </ul>
             {props.children}
         </div>
@@ -446,6 +608,7 @@ ReactDOM.render(
                   <Route path="messages/:msg" component={Message} />
               </Route>
               <Route path="sliders" component={Sliders} />
+              <Route path="circleProgresses" component={CircleProgresses} />
           </Route>
       </Router>
     </Provider>,
