@@ -12,6 +12,7 @@
     "react-dom": "^15.0.1",
     "react-router": "^2.6.0",
     "react-superslider": "^1.0.4",
+    "tinycolor2": "^1.4.1",
     "webpack": "^1.12.14"
   },
   "devDependencies": {

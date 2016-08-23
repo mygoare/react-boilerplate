@@ -1,0 +1,16 @@
+.super-lamp-wrapper {}
+.super-lamp
+{
+  border-radius: 100%;
+  position: relative;
+
+  .inner-shadow, .color, .mask
+  {
+    top:0;
+    left:0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+  }
+}
