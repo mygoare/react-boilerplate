@@ -9,10 +9,13 @@
     "normalize.css": "^4.2.0",
     "pubsub-js": "^1.5.3",
     "react": "^15.0.1",
+    "react-addons-css-transition-group": "^15.3.0",
     "react-dom": "^15.0.1",
+    "react-redux": "^4.4.5",
     "react-router": "^2.6.0",
     "react-superslider": "^1.0.4",
     "tinycolor2": "^1.4.1",
+    "redux": "^3.5.2",
     "webpack": "^1.12.14"
   },
   "devDependencies": {
