@@ -9,7 +9,7 @@ import 'normalize.css'
 import {Hello} from './components/Hello'
 import {Button} from './components/Button'
 import {Img} from './components/Image'
-import {Volumn, SuperSlider} from './components/RangeSlider'
+import {Volumn, SuperSlider, SuperSliderStyles} from './components/RangeSlider'
 
 import CropperJS from 'react-cropperjs'
 
@@ -433,68 +433,67 @@ function Sliders(props)
         <p>default:</p>
         <SuperSlider
             value={10}
-            trackerDecorate={{backgroundColor:'purple'}}
-            fillDecorate={{backgroundColor:'yellow'}}
-            handleDecorate={{backgroundColor:'red'}}
-            orientation='vertical'/>
+            orientation='vertical'
+            theme='default'/>
         <SuperSlider
             min={-10}
             max={40}
             step={5}
-            value={5}/>
-        <p>metal slider 1:</p>
+            value={5}
+            theme='default'/>
+        <p>black:</p>
         <SuperSlider
             value={15}
             width={200}
-            trackerDecorate={{}}
-            fillDecorate={{}}
-            handleDecorate={{}}
-            theme='metal-slider-1'/>
+            decorate={SuperSliderStyles.inner}
+            theme='black'/>
         <div style={{height: '100px'}}>
             <SuperSlider
                 value={75}
                 orientation='vertical'
-                theme='metal-slider-1'/>
+                decorate={SuperSliderStyles.inner}
+                theme='black'/>
         </div>
-            <p>metal slider 2:</p>
+            <p>purple</p>
             <SuperSlider
                 value={55}
                 width={400}
-                theme='metal-slider-2'/>
+                decorate={SuperSliderStyles.purple}
+                />
             <SuperSlider
                 value={85}
                 width={200}
-                theme='metal-slider-2'/>
+                theme='purple'/>
             <SuperSlider
                 value={35}
                 height={120}
                 orientation='vertical'
-                theme='metal-slider-2'/>
+                theme='purple'/>
             <SuperSlider
                 value={50}
                 height={60}
                 orientation='vertical'
-                theme='metal-slider-2'/>
-            <p>metal slider 3:</p>
+                theme='purple'/>
+            <p>inner</p>
             <SuperSlider
                 value={15}
-                theme='metal-slider-3'/>
+                theme='inner'/>
             <div style={{height: '100px'}}>
                 <SuperSlider
                     value={75}
                     orientation='vertical'
-                    theme='metal-slider-3'/>
+                    theme='inner'/>
             </div>
             <div className="container">
                 <div className="row-fixed">
                     <SuperSlider
                         value={5}
-                        theme='metal-slider-1'/>
+                        theme='inner'/>
                 </div>
                 <div className="row-grow">
                     <SuperSlider
                         value={5}
-                        theme='metal-slider-1'/>
+                        theme='inner'/>
                 </div>
             </div>
             <hr/>
@@ -503,13 +502,13 @@ function Sliders(props)
                     <SuperSlider
                         value={5}
                         orientation='vertical'
-                        theme='metal-slider-1'/>
+                        theme=''/>
                 </div>
                 <div className="row-grow">
                     <SuperSlider
                         value={5}
                         orientation='vertical'
-                        theme='metal-slider-1'/>
+                        theme=''/>
                 </div>
             </div>
         </div>

@@ -4,40 +4,15 @@
     height: 100%;
     position: relative;
     z-index: 10000;
-
-    &:after {
-        content: " "; /* Older browser do not support empty content */
-        visibility: hidden;
-        display: block;
-        height: 0;
-        clear: both;
-    }
 }
 
-/**
-theme templates
+@function strip-unit($number) {
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
 
-.theme-name
-{
-	&.rangeslider-horizontal {
-	   .rangeslider__fill {
-	   }
-	   .rangeslider__handle {
-			&:active{
-			}
-	   }
-	}
-
-	&.rangeslider-vertical {
-	   .rangeslider__fill {
-	   }
-	   .rangeslider__handle {
-		   &:active {
-		   }
-	   }
-	}
+  @return $number;
 }
-*/
 
 /**
  * Rangeslider
@@ -57,9 +32,9 @@ theme templates
   }
 
   &.rangeslider-vertical, &.rangeslider-horizontal {
-      &:before {
-          z-index: 2;
-      }
+    .rangeslider__bg {
+      z-index: 2;
+    }
   }
   &, .rangeslider__fill {
   	display: block;
@@ -71,6 +46,111 @@ theme templates
     position: absolute;
     z-index: 3;
     &:active {
+    }
+  }
+
+  .rangeslider__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+  .rangeslider__handle {
+    background-size: cover;
+  }
+}
+
+@mixin sliderThemeDecorate (
+  $trackerImageHorizontal,
+  $trackerImageVertical,
+  $trackerImageSize,
+
+  $trackerImageGap,
+
+  $handleImage, $handleImageWidth, $handleImageHeight,
+
+  $trackerBackgroundH,
+  $fillBackgroundH,
+
+  $trackerBackgroundV,
+  $fillBackgroundV,
+  $trackerBorderRadius
+
+) {
+  $handleImagePosTop: ($handleImageHeight - $trackerImageSize)/2;
+  $handleImagePosLeft: ($handleImageWidth - $trackerImageSize)/2;
+  $trackerImageInnerPadding: $trackerImageGap - $trackerBorderRadius;
+
+  &.rangeslider-horizontal {
+    @if $handleImagePosTop > 0 {
+      margin: $handleImagePosTop 0;
+    }
+    height: $trackerImageSize;
+    border-radius: $trackerBorderRadius;
+
+    .rangeslider__bg {
+      border-top: $trackerImageSize/2 solid transparent;
+      border-bottom: $trackerImageSize/2 solid transparent;
+      border-image: url(unquote($trackerImageHorizontal)) strip-unit($trackerImageSize/2) strip-unit($trackerImageGap) stretch;
+      border-left: $trackerBorderRadius solid transparent;
+      border-right: $trackerBorderRadius solid transparent;
+    }
+    .rangeslider__fill, .rangeslider__tracker {
+      top: $trackerImageInnerPadding;
+      bottom: $trackerImageInnerPadding;
+      left: $trackerImageInnerPadding;
+      right: $trackerImageInnerPadding;
+
+      border-radius: $trackerBorderRadius;
+    }
+    .rangeslider__fill {
+      background: $fillBackgroundH;
+    }
+    .rangeslider__tracker {
+      background: $trackerBackgroundH;
+    }
+    .rangeslider__handle {
+      width: $handleImageWidth;
+      height: $handleImageHeight;
+      background: url($handleImage) no-repeat;
+      top: -$handleImagePosTop;
+    }
+  }
+
+  &.rangeslider-vertical {
+    @if $handleImagePosLeft > 0 {
+      margin: 0 $handleImagePosLeft;
+    }
+    width: $trackerImageSize;
+    border-radius: $trackerBorderRadius;
+
+    .rangeslider__bg {
+      border-top: $trackerBorderRadius solid transparent;
+      border-bottom: $trackerBorderRadius solid transparent;
+      border-image: url(unquote($trackerImageVertical)) strip-unit($trackerImageGap) strip-unit($trackerImageSize/2) stretch;
+      border-left: $trackerImageSize/2 solid transparent;
+      border-right: $trackerImageSize/2 solid transparent;
+    }
+    .rangeslider__fill, .rangeslider__tracker {
+      border-radius: $trackerBorderRadius;
+      right: $trackerImageInnerPadding;
+      left: $trackerImageInnerPadding;
+      bottom: $trackerImageInnerPadding;
+
+    }
+    .rangeslider__fill {
+      background: $fillBackgroundV;
+    }
+    .rangeslider__tracker {
+      background-color: $trackerBackgroundV;
+      top: $trackerImageInnerPadding;
+    }
+    .rangeslider__handle {
+      width: $handleImageWidth;
+      height: $handleImageHeight;
+      background: url($handleImage) no-repeat;
+      left: -$handleImagePosLeft;
     }
   }
 }
@@ -127,7 +207,7 @@ theme templates
       border: 1px solid #ccc;
       width: 30px;
       height: 10px;
-      left: -10px;
+      left: -11px;
       &:active {
           box-shadow: none;
       }
@@ -135,100 +215,115 @@ theme templates
   }
 }
 
-.metal-slider-1
+.purple
 {
-  &.rangeslider-horizontal
-  {
-    &:before
-    {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        border-top: 10px solid transparent;
-        border-bottom: 10px solid transparent;
-        border-image: url(https://ooo.0o0.ooo/2016/07/22/5791ef7a09271.png) 10 9 stretch;
-        border-left: 9px solid transparent;
-        border-right: 9px solid transparent;
-    }
+  @include sliderThemeDecorate(
+    $trackerImageHorizontal: 'https://ooo.0o0.ooo/2016/07/22/5791ef7a09271.png',
+    $trackerImageVertical: 'https://ooo.0o0.ooo/2016/07/22/5791e8150a3f9.png',
+    $trackerImageSize: 20px,
+    $trackerImageGap: 9px,
+    $handleImage: './images/slider1-thumb.png', $handleImageWidth: 22px, $handleImageHeight: 24px,
+    $trackerBackgroundH: #eee,
+    $fillBackgroundH: linear-gradient(to right, #a4a8da 0%,#2648a2 100%),
 
-    margin: 2px 0;
-    height: 20px;
-    border-radius: 10px;
+    $trackerBackgroundV: #eee,
+    $fillBackgroundV: linear-gradient(to top, #a4a8da 0%,#2648a2 100%),
 
-    .rangeslider__fill, .rangeslider__tracker {
-        top: 3px;
-        bottom: 3px;
-        left: 3px;
-        right: 3px;
+    $trackerBorderRadius: 8px
+  );
 
-        border-radius: 10px;
-    }
-    .rangeslider__fill {
-        background: linear-gradient(to right, #a4a8da 0%,#2648a2 100%);
-    }
-    .rangeslider__tracker {
-        background: #eee;
-    }
-    .rangeslider__handle {
-        width: 22px;
-        height: 24px;
-        background: url(./images/slider1-thumb.png) no-repeat;
-        background-size: cover;
-        top: -2px;
-    }
-  }
-
-  &.rangeslider-vertical
-  {
-    &:before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        border-top: 9px solid transparent;
-        border-bottom: 9px solid transparent;
-        border-image: url(https://ooo.0o0.ooo/2016/07/22/5791e8150a3f9.png) 9 10 stretch;
-
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-    }
-
-    margin: 0 1px;
-    width: 20px;
-    border-radius: 10px;
-
-    .rangeslider__fill, .rangeslider__tracker {
-        border-radius: 10px;
-        right: 3px;
-        left: 3px;
-        bottom: 3px;
-
-    }
-    .rangeslider__fill {
-        background: linear-gradient(to top, #a4a8da 0%,#2648a2 100%);
-    }
-    .rangeslider__tracker {
-        background-color: #eee;
-        top: 3px;
-    }
-    .rangeslider__handle {
-        width: 22px;
-        height: 24px;
-        background: url(./images/slider1-thumb.png) no-repeat;
-        background-size: cover;
-        border: none;
-
-        left: -1px;
-    }
-  }
+  //&.rangeslider-horizontal
+  //{
+  //  &:before
+  //  {
+  //      content: '';
+  //      position: absolute;
+  //      top: 0;
+  //      left: 0;
+  //      bottom: 0;
+  //      right: 0;
+  //      border-top: 10px solid transparent;
+  //      border-bottom: 10px solid transparent;
+  //      border-image: url(https://ooo.0o0.ooo/2016/07/22/5791ef7a09271.png) 10 9 stretch;
+  //      border-left: 9px solid transparent;
+  //      border-right: 9px solid transparent;
+  //  }
+  //
+  //  margin: 2px 0;
+  //  height: 20px;
+  //  border-radius: 10px;
+  //
+  //  .rangeslider__fill, .rangeslider__tracker {
+  //      top: 3px;
+  //      bottom: 3px;
+  //      left: 3px;
+  //      right: 3px;
+  //
+  //      border-radius: 10px;
+  //  }
+  //  .rangeslider__fill {
+  //      background: linear-gradient(to right, #a4a8da 0%,#2648a2 100%);
+  //  }
+  //  .rangeslider__tracker {
+  //      background: #eee;
+  //  }
+  //  .rangeslider__handle {
+  //      width: 22px;
+  //      height: 24px;
+  //      background: url(./images/slider1-thumb.png) no-repeat;
+  //      background-size: cover;
+  //      top: -2px;
+  //  }
+  //}
+  //
+  //&.rangeslider-vertical
+  //{
+  //  &:before {
+  //      content: '';
+  //      position: absolute;
+  //      top: 0;
+  //      left: 0;
+  //      bottom: 0;
+  //      right: 0;
+  //      border-top: 9px solid transparent;
+  //      border-bottom: 9px solid transparent;
+  //      border-image: url(https://ooo.0o0.ooo/2016/07/22/5791e8150a3f9.png) 9 10 stretch;
+  //
+  //      border-left: 10px solid transparent;
+  //      border-right: 10px solid transparent;
+  //  }
+  //
+  //  margin: 0 1px;
+  //  width: 20px;
+  //  border-radius: 10px;
+  //
+  //  .rangeslider__fill, .rangeslider__tracker {
+  //      border-radius: 10px;
+  //      right: 3px;
+  //      left: 3px;
+  //      bottom: 3px;
+  //
+  //  }
+  //  .rangeslider__fill {
+  //      background: linear-gradient(to top, #a4a8da 0%,#2648a2 100%);
+  //  }
+  //  .rangeslider__tracker {
+  //      background-color: #eee;
+  //      top: 3px;
+  //  }
+  //  .rangeslider__handle {
+  //      width: 22px;
+  //      height: 24px;
+  //      background: url(./images/slider1-thumb.png) no-repeat;
+  //      background-size: cover;
+  //      border: none;
+  //
+  //      left: -1px;
+  //  }
+  //}
 }
 
-.metal-slider-2
+.black
 {
   &.rangeslider-horizontal {
     margin: 5px 0;
@@ -284,90 +379,106 @@ theme templates
   }
 }
 
-.metal-slider-3
+.inner
 {
-  &.rangeslider-horizontal {
-    &:before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        border-top: 12px solid transparent;
-        border-bottom: 12px solid transparent;
-        border-image: url(https://ooo.0o0.ooo/2016/07/26/57973ca008798.png) 12 12 stretch;
-        border-left: 12px solid transparent;
-        border-right: 12px solid transparent;
-    }
+  @include sliderThemeDecorate(
+          $trackerImageHorizontal: 'https://ooo.0o0.ooo/2016/07/26/57973ca008798.png',
+          $trackerImageVertical: 'https://ooo.0o0.ooo/2016/07/26/57973cc67dfae.png',
+          $trackerImageSize: 24px,
+          $trackerImageGap: 12px,
+          $handleImage: 'https://ooo.0o0.ooo/2016/07/24/5795863e80f88.png', $handleImageWidth: 18px, $handleImageHeight: 20px,
+          $trackerBackgroundH: #bdbdbd,
+          $fillBackgroundH: #87c886,
 
-    height: 24px;
-    border-radius: 8px;
-    .rangeslider__fill, .rangeslider__tracker {
-        border-radius: 8px;
+          $trackerBackgroundV: #bdbdbd,
+          $fillBackgroundV: #87c886,
 
-        top: 3px;
-        bottom: 3px;
-        left: 3px;
-        right: 3px;
-    }
-    .rangeslider__fill {
-        background-color: #87c886;
-    }
-    .rangeslider__tracker {
-        background-color: #bdbdbd;
-    }
-    .rangeslider__handle {
-      width: 18px;
-      height: 20px;
-      background: url(https://ooo.0o0.ooo/2016/07/24/5795863e80f88.png) no-repeat;
-      background-size: cover;
-      top: 2px;
-    }
-  }
-  &.rangeslider-vertical {
-      &:before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          bottom: 0;
-          right: 0;
-          border-top: 12px solid transparent;
-          border-bottom: 12px solid transparent;
-          border-image: url(https://ooo.0o0.ooo/2016/07/26/57973cc67dfae.png) 12 12 stretch;
+          $trackerBorderRadius: 8px
+  );
 
-          border-left: 12px solid transparent;
-          border-right: 12px solid transparent;
-      }
-
-    width: 24px;
-    border-radius: 8px;
-
-    .rangeslider__fill, .rangeslider__tracker {
-        border-radius: 8px;
-
-        bottom: 3px;
-        left: 3px;
-        right: 3px;
-    }
-    .rangeslider__fill {
-        background-color: #87c886;
-    }
-    .rangeslider__tracker {
-        background-color: #bdbdbd;
-        top: 3px;
-    }
-    .rangeslider__handle {
-      width: 18px;
-      height: 20px;
-      background: url(./images/slider2-thumb.png) no-repeat;
-      background-size: cover;
-
-      left: 2px;
-
-      &:active {
-      }
-    }
-  }
+  //&.rangeslider-horizontal {
+  //  &:before {
+  //      content: '';
+  //      position: absolute;
+  //      top: 0;
+  //      left: 0;
+  //      bottom: 0;
+  //      right: 0;
+  //      border-top: 12px solid transparent;
+  //      border-bottom: 12px solid transparent;
+  //      border-image: url(https://ooo.0o0.ooo/2016/07/26/57973ca008798.png) 12 12 stretch;
+  //      border-left: 12px solid transparent;
+  //      border-right: 12px solid transparent;
+  //  }
+  //
+  //  height: 24px;
+  //  border-radius: 8px;
+  //  .rangeslider__fill, .rangeslider__tracker {
+  //      border-radius: 8px;
+  //
+  //      top: 3px;
+  //      bottom: 3px;
+  //      left: 3px;
+  //      right: 3px;
+  //  }
+  //  .rangeslider__fill {
+  //      background-color: #87c886;
+  //  }
+  //  .rangeslider__tracker {
+  //      background-color: #bdbdbd;
+  //  }
+  //  .rangeslider__handle {
+  //    width: 18px;
+  //    height: 20px;
+  //    background: url(https://ooo.0o0.ooo/2016/07/24/5795863e80f88.png) no-repeat;
+  //    background-size: cover;
+  //    top: 2px;
+  //  }
+  //}
+  //&.rangeslider-vertical {
+  //    &:before {
+  //        content: '';
+  //        position: absolute;
+  //        top: 0;
+  //        left: 0;
+  //        bottom: 0;
+  //        right: 0;
+  //        border-top: 12px solid transparent;
+  //        border-bottom: 12px solid transparent;
+  //        border-image: url(https://ooo.0o0.ooo/2016/07/26/57973cc67dfae.png) 12 12 stretch;
+  //
+  //        border-left: 12px solid transparent;
+  //        border-right: 12px solid transparent;
+  //    }
+  //
+  //  width: 24px;
+  //  border-radius: 8px;
+  //
+  //  .rangeslider__fill, .rangeslider__tracker {
+  //      border-radius: 8px;
+  //
+  //      bottom: 3px;
+  //      left: 3px;
+  //      right: 3px;
+  //  }
+  //  .rangeslider__fill {
+  //      background-color: #87c886;
+  //  }
+  //  .rangeslider__tracker {
+  //      background-color: #bdbdbd;
+  //      top: 3px;
+  //  }
+  //  .rangeslider__handle {
+  //    width: 18px;
+  //    height: 20px;
+  //    background: url(./images/slider2-thumb.png) no-repeat;
+  //    background-size: cover;
+  //
+  //    left: 2px;
+  //
+  //    &:active {
+  //    }
+  //  }
+  //}
 }
+
