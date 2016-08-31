@@ -22,11 +22,13 @@ import {reducers} from './reducers'
 var store = createStore(reducers);
 store.subscribe(()=> console.log(store.getState()));
 
-import {CircularProgress} from './components/CircularProgress'
-import {CircleProgress} from './components/CircularProgress/circleProgress.js'
+import {CircularProgress} from './components/CircularProgress/CircularProgress'
+import {CircleProgress, CircleProgress2} from './components/CircularProgress/circleProgress'
 import {SuperLamp} from './components/SuperLamp'
 
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+
+import {Canvas, CanvasRect} from './components/Canvas/base'
 
 var TodoList = React.createClass({
   getInitialState: function() {
@@ -272,6 +274,24 @@ var CircleControl = React.createClass({
 
                 <div>
                     <p>ABC</p>
+                    <CanvasRect
+                        width={this.state.value}
+                        height={100}
+                    />
+
+                    <CircleProgress2
+                        value         = {this.state.value}
+                        min           = {0}
+                        max           = {100}
+                        radius        = {60}
+                        thickness     = {12}
+                        arc           = {this.state.arc}
+                        bgStrokeColor = 'green'
+                        fgStrokeColor = {['red']}
+                        lineCap       = 'butt'
+                        colorGradient = {false}
+                        clip          = {true}
+                    />
 
                     <CircleProgress
                         clip={false}
